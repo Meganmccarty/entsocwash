@@ -145,6 +145,7 @@ footer {
     flex-direction: row;
     align-items: top;
     justify-content: space-evenly;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-item {
