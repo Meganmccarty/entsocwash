@@ -36,17 +36,20 @@ main {
     font-size: 20px;
 }
 
-.green-button {
-    background-color: rgb(0, 169, 141);
+.button {
     border: 0px;
     border-radius: 10px;
     padding: 10px 15px 10px 15px;
     margin: 5px;
-    color: white;
     font-family: 'Montserrat', sans-serif;
 }
 
-.green-button:hover {
+.green {
+    background-color: rgb(0, 169, 141);
+    color: white;
+}
+
+button.green:hover {
     background-color: rgb(0, 209, 181);
     font-weight: bold;
     color: black;
@@ -90,19 +93,41 @@ main {
     font-family: 'Montserrat', sans-serif;
 }
 
-.section-header-blue, .section-header-brown {
-    color: white;
+.section-header {
     padding: 10px 30px 10px 30px;
     width: 100%;
     font-family: 'Montserrat', sans-serif;
 }
 
-.section-header-blue {
+.dark-blue {
     background-color: rgb(52, 74, 83);
+    color: white;
 }
 
-.section-header-brown {
+.brown {
     background-color: rgb(137, 114, 96);
+    color: white;
+}
+
+button.brown:hover {
+    background-color: rgb(177, 154, 136);
+    color: black;
+    font-weight: bold;
+}
+
+.light-brown {
+    background-color: rgb(191, 166, 146);
+    color: black;
+}
+
+.blue {
+    background-color: rgb(88, 124, 138);
+    color: white;
+}
+
+.light-blue {
+    background-color: rgb(140, 176, 191);
+    color: black;
 }
 
 .text-block-container-2w, .text-block-container-3w {
@@ -113,8 +138,6 @@ main {
 
 .text-block-header {
     width: 100%;
-    background-color: rgb(137, 114, 96);
-    color: white;
     padding: 10px;
     font-family: 'Montserrat', sans-serif;
 }
