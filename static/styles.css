@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(182, 193, 191);
+    background-color: rgb(133, 177, 190);
 }
 
 main {
@@ -10,7 +10,7 @@ main {
 }
 
 .brand {
-    font-size: 40px;
+    font-size: 18px;
     color: white;
 }
 
@@ -25,15 +25,14 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 20px 5px 20px;
 }
 
 .bg-color {
-    background-color: rgb(52, 74, 83);
+    background-color: rgb(30, 52, 47);
 }
 
 .menu-buttons {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .button {
@@ -56,7 +55,7 @@ button.green:hover {
 }
 
 .navbar-nav {
-    font-size: 23px;
+    font-size: 18px;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -65,7 +64,7 @@ button.green:hover {
 }
 
 .dropdown-menu {
-    background-color: rgb(52, 74, 83);
+    background-color: rgb(30, 52, 47);
     border: 1px solid white;
 }
 
@@ -78,14 +77,19 @@ button.green:hover {
     color: black;
 }
 
-.carousel {
-    width: auto;
-    background: rgb(52, 74, 83);
+.home-banner {
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 40px 30px 40px;
 }
 
-.carousel img {
-    max-height: 450px;
-    width: 100%;
+.home-banner > h1, .home-banner img {
+    font-size: 75px;
+    color: rgb(50, 76, 82);
+    padding: 0px 40px 0px 40px;
 }
 
 .section-header-plain {
@@ -100,7 +104,7 @@ button.green:hover {
 }
 
 .dark-blue {
-    background-color: rgb(52, 74, 83);
+    background-color: rgb(81, 125, 138);
     color: white;
 }
 
@@ -154,15 +158,14 @@ button.brown:hover {
 
 .text-block img {
     display: block;
-    width: 100%;
-    
+    width: 20%;
 }
 
 footer {
-    background-color: rgb(52, 74, 83);
+    background-color: rgb(30, 52, 47);
     color: white;
     padding: 20px 10px 20px 10px;
-    font-size: 20px;
+    font-size: 16px;
     height: auto;
     display: flex;
     flex-direction: row;
