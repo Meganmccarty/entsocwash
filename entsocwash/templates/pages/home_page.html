@@ -1,11 +1,14 @@
-<!DOCTYPE html>
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load static %}
+
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-        <link rel="stylesheet" href="../static/styles.css">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <title>ESW – Home</title>
     </head>
 
@@ -76,9 +79,11 @@
         </header>
         <main>
             <section class="home-banner">
-                <img src="../images/logo-home.png">
+                <img src="{% static 'images/logo-home.png' %}">
                 <h1>The Entomological Society of Washington</h1>
             </section>
+
+            
 
             <h1 class="section-header dark-blue">Come to the Next Meeting!</h1>
             <div class="text-block-container">
@@ -86,8 +91,23 @@
                 <section class="text-block">
                     <h2 class="text-block-header">Upcoming Meetings</h2>
                     <div class="image">
-                        <img src="../images/ESW-flyer-202003.jpg">
+                        <img src="{% static 'images/ESW-flyer-202003.jpg' %}">
                     </div>
+                    <div class="button-container">
+                        <button class="green button">More Information</button>
+                    </div>
+                </section>
+
+                <section class="text-block">
+                    {% for block in page.body %}
+                        {% if block.block_type == 'heading' %}
+                            <h2 class="section-header dark-blue">{{ block.value }}</h2>
+                        {% elif block.block_type == 'image' %}
+                            {% image block.value scale-100 %}
+                        {% elif block.block_type == 'paragraph' %}
+                            {{ block.value }}
+                        {% endif %}
+                    {% endfor %}
                     <div class="button-container">
                         <button class="green button">More Information</button>
                     </div>

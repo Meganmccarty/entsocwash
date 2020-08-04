@@ -158,7 +158,10 @@ button.brown:hover {
 
 .text-block img {
     display: block;
-    width: 20%;
+    width: 50%;
+    height: auto;
+    min-width: 400px;
+    max-width: 500px;
 }
 
 footer {
