@@ -8,11 +8,14 @@ from wagtail.images.blocks import ImageChooserBlock
 
 class HomePage(Page):
     body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('subtitle', blocks.CharBlock(classname="full title")),
+        ('section', blocks.StructBlock([
+            ('heading', blocks.CharBlock()),
+            ('paragraph', blocks.RichTextBlock()),
+            ('image', ImageChooserBlock(required=False)),
+        ])),
     ])
-
+    
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]

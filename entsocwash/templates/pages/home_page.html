@@ -83,35 +83,26 @@
                 <h1>The Entomological Society of Washington</h1>
             </section>
 
-            
+            {% for block in page.body %}
+                {% if block.block_type == 'subtitle' %}
+                    <h1 class="section-header dark-blue">{{ block.value }}</h1>
+                {% elif block.block_type == 'section' %}
+                    <div class="text-block-container">
+                        <section class="text-block">
+                            <h2 class="text-block-header">{% include_block block.value.heading %}</h2>
+                            {% if block.value.image %}
+                                {% image block.value.image scale-100 %}
+                            {% endif %}
+                            {% include_block block.value.paragraph %}
+                            <div class="button-container">
+                                <button class="green button">More Information</button>
+                            </div>
+                        </section> 
+                    </div>
+                {% endif %}
+            {% endfor %}
 
-            <h1 class="section-header dark-blue">Come to the Next Meeting!</h1>
             <div class="text-block-container">
-
-                <section class="text-block">
-                    <h2 class="text-block-header">Upcoming Meetings</h2>
-                    <div class="image">
-                        <img src="{% static 'images/ESW-flyer-202003.jpg' %}">
-                    </div>
-                    <div class="button-container">
-                        <button class="green button">More Information</button>
-                    </div>
-                </section>
-
-                <section class="text-block">
-                    {% for block in page.body %}
-                        {% if block.block_type == 'heading' %}
-                            <h2 class="section-header dark-blue">{{ block.value }}</h2>
-                        {% elif block.block_type == 'image' %}
-                            {% image block.value scale-100 %}
-                        {% elif block.block_type == 'paragraph' %}
-                            {{ block.value }}
-                        {% endif %}
-                    {% endfor %}
-                    <div class="button-container">
-                        <button class="green button">More Information</button>
-                    </div>
-                </section>
 
                 <section class="text-block">
                     <h2 class="text-block-header">Past Meetings</h2>

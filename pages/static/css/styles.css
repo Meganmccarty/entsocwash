@@ -147,6 +147,11 @@ button.brown:hover {
 }
 
 .text-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
     background-color: rgb(241, 255, 252);
     box-shadow: 10px 10px 0px rgb(30, 52, 47);
     margin: 20px 30px 30px 20px;
@@ -156,12 +161,18 @@ button.brown:hover {
     font-family: 'Open Sans', sans-serif;
 }
 
+.text-block > .rich-text {
+    max-width: 500px;
+    min-width: 200px;
+}
+
 .text-block img {
     display: block;
     width: 50%;
     height: auto;
-    min-width: 400px;
-    max-width: 500px;
+    min-width: 250px;
+    max-width: 350px;
+    margin: 0 5px 0 5px;
 }
 
 footer {
