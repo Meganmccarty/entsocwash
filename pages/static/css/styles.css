@@ -161,9 +161,19 @@ button.brown:hover {
     font-family: 'Open Sans', sans-serif;
 }
 
-.text-block > .rich-text {
-    max-width: 500px;
-    min-width: 200px;
+.text-block > .half-text {
+    max-width: 50%;
+    min-width: 250px;
+}
+
+.text-block > .two-thirds-text {
+    max-width: 66%;
+    min-width: 250px;
+}
+
+.text-block > .full-text {
+    max-width: 75%;
+    min-width: 250px;
 }
 
 .text-block img {
