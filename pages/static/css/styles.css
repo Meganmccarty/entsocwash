@@ -86,10 +86,18 @@ button.green:hover {
     margin: 30px 40px 30px 40px;
 }
 
-.home-banner > h1, .home-banner img {
+.home-banner > h1 {
     font-size: 75px;
+    width: 100%;
     color: rgb(50, 76, 82);
     padding: 0px 40px 0px 40px;
+}
+
+.home-banner img {
+    padding: 0px 40px 0px 40px;
+    width: 40%;
+    max-width: 600px;
+    min-width: 250px;
 }
 
 .section-header-plain {
@@ -203,15 +211,59 @@ footer {
     flex-direction: column;
 }
 
+@media all and (max-width: 1100px) {
+    .home-banner > h1 {
+        font-size: 60px;
+    }
+}
+
 @media all and (max-width: 960px) {
     .text-block-container-3w {
         flex-direction: column;
     }
 }
 
+@media all and (max-width: 930px) {
+    .home-banner {
+        margin: 25px 30px 25px 30px;
+    }
+    
+    .home-banner > h1 {
+        font-size: 50px;
+    }
+}
+
+@media all and (max-width: 850px) {
+    .home-banner {
+        margin: 20px 25px 20px 25px;
+    }
+    
+    .home-banner > h1 {
+        font-size: 40px;
+    }
+}
+
 @media all and (max-width: 750px) {
     .text-block-container-2w {
         flex-direction: column;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .home-banner > h1 {
+        font-size: 35px;
+    }
+}
+
+@media all and (max-width: 550px) {
+    .home-banner {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .home-banner > h1 {
+        font-size: 30px;
+        text-align: center;
     }
 }
 
