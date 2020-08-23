@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load static %}
+
+{% block content %}
+    
+    {% for block in page.body %}
+        {% if block.block_type == 'subtitle' %}
+            <h1 class="section-header dark-blue">{{ block.value }}</h1>
+        {% elif block.block_type == 'section' %}
+            <div class="text-block-container">
+                <section class="text-block">
+                    <h2 class="text-block-header">{% include_block block.value.heading %}</h2>
+                            
+                    {% if block.value.image %}
+                        {% image block.value.image scale-100 %}
+                        {% if block.value.more_information %}
+                            <div class="half-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                            <div class="button-container">
+                                <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
+                            </div>
+                        {% else %}
+                            <div class="two-thirds-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if block.value.more_information %}
+                            <div class="full-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                            <div class="button-container">
+                                <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
+                            </div>
+                        {% else %}
+                            <div class="full-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </section> 
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
