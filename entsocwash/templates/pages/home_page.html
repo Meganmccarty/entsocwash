@@ -1,92 +1,15 @@
+{% extends 'base.html' %}
+
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load static %}
 
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        <title>ESW – Home</title>
-    </head>
-
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-color">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="brand" href="#">ESW</a>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Events
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Upcoming Meetings</a>
-                                <a class="dropdown-item" href="#">Past Meetings</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Publications
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Proceedings of the Entomological Society of Washington</a>
-                                <a class="dropdown-item" href="#">Memoirs and Other Publications</a>
-                                <a class="dropdown-item" href="#">Submit a Manuscript</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Membership
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Membership Directory</a>
-                                <a class="dropdown-item" href="#">Membership Gallery</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Young Entomologists Group
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">About YEG</a>
-                                <a class="dropdown-item" href="#">Upcoming Meetings</a>
-                                <a class="dropdown-item" href="#">Event Gallery</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                About
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">History of the ESW</a>
-                                <a class="dropdown-item" href="#">Seal</a>
-                                <a class="dropdown-item" href="#">Current Officers</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="menu-buttons">
-                    <button class="green button">Join!</button>
-                    <button class="green button">Log In</button>
-                </div>
-            </nav>
-        </header>
-        <main>
-            <section class="home-banner">
-                <img src="{% static 'images/logo-home.png' %}">
-                <h1>The Entomological Society of Washington</h1>
-            </section>
-
-            {% for block in page.body %}
-                {% if block.block_type == 'subtitle' %}
-                    <h1 class="section-header dark-blue">{{ block.value }}</h1>
-                {% elif block.block_type == 'section' %}
+{% block content %}
+    <h1 class="section-header dark-blue">Events</h1>
+    {% for event in eventspages %}
+        {% with event=event.specific %}
+            {% for block in event.body %}
+                {% if block.block_type == 'section' %}
                     <div class="text-block-container">
                         <section class="text-block">
                             <h2 class="text-block-header">{% include_block block.value.heading %}</h2>
@@ -95,6 +18,8 @@
                                 {% image block.value.image scale-100 %}
                                 {% if block.value.more_information %}
                                     <div class="half-text">
+                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
                                     <div class="button-container">
@@ -102,12 +27,16 @@
                                     </div>
                                 {% else %}
                                     <div class="two-thirds-text">
+                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
                                 {% endif %}
                             {% else %}
                                 {% if block.value.more_information %}
                                     <div class="full-text">
+                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
                                     <div class="button-container">
@@ -115,35 +44,63 @@
                                     </div>
                                 {% else %}
                                     <div class="full-text">
+                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
                                 {% endif %}
                             {% endif %}
+                            <div class="button-container">
+                                <a href="{% pageurl event %}">
+                                    <button class="green button">More information &rarr;</button>
+                                </a>
+                            </div>
                         </section> 
                     </div>
                 {% endif %}
             {% endfor %}
-
-            
-        </main>
-
-        <footer>
-            <div class="footer-item">
-                <p>EntSocWash [Can replace with logo]</p>
-                <p>Contact Us</p>
-                <p>Website and content © 2020 Entomological Society of Washington</p>
+        {% endwith %}
+    {% endfor %}
+    
+    {% for block in page.body %}
+        {% if block.block_type == 'subtitle' %}
+            <h1 class="section-header dark-blue">{{ block.value }}</h1>
+        {% elif block.block_type == 'section' %}
+            <div class="text-block-container">
+                <section class="text-block">
+                    <h2 class="text-block-header">{% include_block block.value.heading %}</h2>
+                            
+                    {% if block.value.image %}
+                        {% image block.value.image scale-100 %}
+                        {% if block.value.more_information %}
+                            <div class="half-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                            <div class="button-container">
+                                <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
+                            </div>
+                        {% else %}
+                            <div class="two-thirds-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if block.value.more_information %}
+                            <div class="full-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                            <div class="button-container">
+                                <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
+                            </div>
+                        {% else %}
+                            <div class="full-text">
+                                {% include_block block.value.paragraph %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </section> 
             </div>
-            <div class="footer-item">
-                <p>Society Address</p>
-            </div>
-            <div class="footer-item">
-                <p>Society social media icons can go here</p>
-            </div>
+        {% endif %}
+    {% endfor %}
 
-        </footer>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-    </body>
-
-</html>
+{% endblock %}
