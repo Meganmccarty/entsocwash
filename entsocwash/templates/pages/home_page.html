@@ -18,7 +18,7 @@
                                 {% image block.value.image scale-100 %}
                                 {% if block.value.more_information %}
                                     <div class="half-text">
-                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
                                         <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
@@ -27,7 +27,7 @@
                                     </div>
                                 {% else %}
                                     <div class="two-thirds-text">
-                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
                                         <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
@@ -35,7 +35,7 @@
                             {% else %}
                                 {% if block.value.more_information %}
                                     <div class="full-text">
-                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
                                         <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
@@ -44,7 +44,7 @@
                                     </div>
                                 {% else %}
                                     <div class="full-text">
-                                        <p>When: {% include_block block.value.date %}</p>
+                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
                                         <p>Where: {% include_block block.value.location %}</p>
                                         {% include_block block.value.paragraph %}
                                     </div>
