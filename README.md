@@ -1,9 +1,31 @@
 # entsocwash
 
-There are two HTML files in the template directory: a sample home page, and a generic page that will be customizable.
+Navigate to the directory where you want to install the repo:
 
-The home page plays with the color palette and some sample fonts (listed in the assets directory). There is a sample image carousel in place, as I thought the home page needed some images. (All images used are mine and are available for licensing on Alamy.)
+    cd your/file/path/here
 
-The generic page has a bunch of text-block components and headers in differing layouts. The idea is that an editor can edit a page in the CMS and can not only change the content but can choose how to lay it out on the page. This will reduce the number of templates needed to create the website and give the ESW more control over how the website will look as content is added, changed, and removed over time.
+Next, create a virtual environment (if you haven't already) and activate it
 
-Also included on this generic page are a bunch of different color combinations for the headers and buttons (these won't be customizable for the editor, I just wanted to see which combinations might look best).
+    python3 -m venv myvenv
+    source myvenv/bin/activate
+
+Initialize git and clone this repository
+
+    git init
+    git clone https://github.com/Meganmccarty/entsocwash.git
+
+Navigate down one level to the folder containing the manage.py file:
+
+    cd entsocwash
+
+Install dependencies
+
+    pip install -r requirements.txt
+
+Then run the following commands:
+
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py runserver
+
+The website should now be accessible via your browser on localhost:8000 or 127.0.0.1:8000
