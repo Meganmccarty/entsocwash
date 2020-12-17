@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load static %}
+
+{% block content %}
+    <h1 class="section-header dark-blue">Past Meetings</h1>
+    <div class="text-block-container">
+        {% for meeting in past_meetings %}
+        <section class="text-block">
+            <h2 class="text-block-header">{{ meeting.title }}</h2>
+            <p>
+                {{ meeting.meeting_details }}
+            </p>
+        </section>
+        {% endfor %}
+    </div>
+
+{% endblock %}
