@@ -142,10 +142,12 @@ button.brown:hover {
     color: black;
 }
 
-.text-block-container-2w, .text-block-container-3w {
+.text-block-container {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start; /* use "top" to make all text blocks of equal height */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 85%;
 }
 
 .text-block-header {
@@ -156,40 +158,36 @@ button.brown:hover {
 
 .text-block {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-around;
     background-color: rgb(241, 255, 252);
     box-shadow: 10px 10px 0px rgb(30, 52, 47);
     margin: 20px 30px 30px 20px;
-    padding: 25px;
+    padding: 15px;
     height: auto;
     font-size: 20px;
     font-family: 'Open Sans', sans-serif;
+    width: 100%;
 }
 
-.text-block > .half-text {
-    max-width: 50%;
-    min-width: 220px;
+.subtext-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.text-block > .two-thirds-text {
-    max-width: 66%;
-    min-width: 220px;
-}
-
-.text-block > .full-text {
-    max-width: 75%;
-    min-width: 220px;
+.subtext-item {
+    padding: 25px;
 }
 
 .text-block img {
     display: block;
     width: 50%;
+    min-width: 200px;
+    max-width: 300px;
     height: auto;
-    min-width: 220px;
-    max-width: 350px;
     margin: 0 5px 0 5px;
 }
 
@@ -217,12 +215,6 @@ footer {
     }
 }
 
-@media all and (max-width: 960px) {
-    .text-block-container-3w {
-        flex-direction: column;
-    }
-}
-
 @media all and (max-width: 930px) {
     .home-banner {
         margin: 25px 30px 25px 30px;
@@ -243,15 +235,15 @@ footer {
     }
 }
 
-@media all and (max-width: 750px) {
-    .text-block-container-2w {
-        flex-direction: column;
-    }
-}
-
 @media all and (max-width: 700px) {
     .home-banner > h1 {
         font-size: 35px;
+    }
+
+    .subtext-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -272,5 +264,9 @@ footer {
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+    }
+
+    .text-block img {
+        width: 100%;
     }
 }
