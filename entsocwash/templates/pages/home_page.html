@@ -5,57 +5,47 @@
 {% load static %}
 
 {% block content %}
+
     <h1 class="section-header dark-blue">Come Join Us at Our Next Meeting!</h1>
     <div class="text-block-container">
+
         {% for meeting in upcoming_meetings %}
+
         <section class="text-block">
-            <h2 class="text-block-header">{{ meeting.title }}</h2>
-            <p>
-                {{ meeting.meeting_details }}
-            </p>
-        </section>
-        {% endfor %}
-    </div>
-    
-    {% for block in page.body %}
-        {% if block.block_type == 'subtitle' %}
-            <h1 class="section-header dark-blue">{{ block.value }}</h1>
-        {% elif block.block_type == 'section' %}
-            <div class="text-block-container">
-                <section class="text-block">
-                    <h2 class="text-block-header">{% include_block block.value.heading %}</h2>
-                            
-                    {% if block.value.image %}
-                        {% image block.value.image scale-100 %}
-                        {% if block.value.more_information %}
-                            <div class="half-text">
-                                {% include_block block.value.paragraph %}
-                            </div>
-                            <div class="button-container">
-                                <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
-                            </div>
-                        {% else %}
-                            <div class="two-thirds-text">
-                                {% include_block block.value.paragraph %}
-                            </div>
-                        {% endif %}
-                    {% else %}
-                        {% if block.value.more_information %}
-                            <div class="full-text">
-                                {% include_block block.value.paragraph %}
-                            </div>
-                            <div class="button-container">
-                                <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
-                            </div>
-                        {% else %}
-                            <div class="full-text">
-                                {% include_block block.value.paragraph %}
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                </section> 
+            <div>
+                <h2 class="text-block-header">{{ meeting.title }} -- {{ meeting.date }}</h2>
             </div>
-        {% endif %}
-    {% endfor %}
+            <div class="subtext-block">
+            
+                {% if meeting.image %}
+                
+                <img class="subtext-item" src="{{ meeting.image.url }}">
+                <div class="subtext-item">
+                    <p>
+                        {{ meeting.meeting_details }}
+                    </p>
+                    <p>
+                        Location: {{ meeting.location }}
+                    </p>
+                </div>
+
+                {% else %}
+
+                <div class="subtext-item">
+                    <p>
+                        {{ meeting.meeting_details }}
+                    </p>
+                    <p>
+                        Location: {{ meeting.location }}
+                    </p>
+                </div>
+
+                {% endif %}
+            </div>
+        </section>
+
+        {% endfor %}
+        
+    </div>
 
 {% endblock %}
