@@ -46,10 +46,11 @@ class GenericPage(Page):
     ]
 
 class Meeting(models.Model):
-    title = models.CharField(default='', max_length=100, help_text='Add a title for this specific meeting.')
-    date = models.DateTimeField(help_text='Enter the date and time of the meeting.')
-    meeting_details = models.TextField(default='', help_text='Include the specifics of the meeting')
-    image = models.ImageField(null=True, blank=True, help_text='Optional; select an image to go with this meeting.')
+    title = models.CharField(default='', max_length=100, help_text="Add a title for this specific meeting")
+    date = models.DateTimeField(help_text="Enter the date and time of the meeting")
+    location = models.CharField(default='', max_length=500, help_text="Enter the location of the meeting")
+    meeting_details = models.TextField(default='', help_text="Include the specifics of the meeting")
+    image = models.ImageField(upload_to='meeting_images/', null=True, blank=True, help_text="Optional; select an image to go with this meeting")
 
     class Meta:
         ordering = ['-date']
