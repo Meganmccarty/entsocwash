@@ -5,62 +5,17 @@
 {% load static %}
 
 {% block content %}
-    <h1 class="section-header dark-blue">Events</h1>
-    {% for event in eventspages %}
-        {% with event=event.specific %}
-            {% for block in event.body %}
-                {% if block.block_type == 'section' %}
-                    <div class="text-block-container">
-                        <section class="text-block">
-                            <h2 class="text-block-header">{% include_block block.value.heading %}</h2>
-                            
-                            {% if block.value.image %}
-                                {% image block.value.image scale-100 %}
-                                {% if block.value.more_information %}
-                                    <div class="half-text">
-                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
-                                        <p>Where: {% include_block block.value.location %}</p>
-                                        {% include_block block.value.paragraph %}
-                                    </div>
-                                    <div class="button-container">
-                                        <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
-                                    </div>
-                                {% else %}
-                                    <div class="two-thirds-text">
-                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
-                                        <p>Where: {% include_block block.value.location %}</p>
-                                        {% include_block block.value.paragraph %}
-                                    </div>
-                                {% endif %}
-                            {% else %}
-                                {% if block.value.more_information %}
-                                    <div class="full-text">
-                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
-                                        <p>Where: {% include_block block.value.location %}</p>
-                                        {% include_block block.value.paragraph %}
-                                    </div>
-                                    <div class="button-container">
-                                        <a href="{% include_block block.value.more_information %}"><button class="green button">More Information</button></a>
-                                    </div>
-                                {% else %}
-                                    <div class="full-text">
-                                        <p>When: {{ block.value.date|date:"l, F d, Y fA" }}</p>
-                                        <p>Where: {% include_block block.value.location %}</p>
-                                        {% include_block block.value.paragraph %}
-                                    </div>
-                                {% endif %}
-                            {% endif %}
-                            <div class="button-container">
-                                <a href="{% pageurl event %}">
-                                    <button class="green button">More information &rarr;</button>
-                                </a>
-                            </div>
-                        </section> 
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endwith %}
-    {% endfor %}
+    <h1 class="section-header dark-blue">Come Join Us at Our Next Meeting!</h1>
+    <div class="text-block-container">
+        {% for meeting in upcoming_meetings %}
+        <section class="text-block">
+            <h2 class="text-block-header">{{ meeting.title }}</h2>
+            <p>
+                {{ meeting.meeting_details }}
+            </p>
+        </section>
+        {% endfor %}
+    </div>
     
     {% for block in page.body %}
         {% if block.block_type == 'subtitle' %}
