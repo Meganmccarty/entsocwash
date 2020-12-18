@@ -18,7 +18,7 @@ class HomePage(Page):
             ('image', ImageChooserBlock(required=False)),
         ])),
     ])
-    
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]
@@ -34,13 +34,13 @@ class GenericPage(Page):
     body = StreamField([
         ('subtitle', blocks.CharBlock(classname="full title")),
         ('section', blocks.StructBlock([
-            ('heading', blocks.CharBlock()),
+            ('heading', blocks.CharBlock(required=False)),
             ('paragraph', blocks.RichTextBlock()),
             ('image', ImageChooserBlock(required=False)),
             ('more_information', PageChooserBlock(required=False, help_text="Select a page where a member can find more information")),
         ])),
     ])
-    
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]
