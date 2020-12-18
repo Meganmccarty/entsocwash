@@ -16,9 +16,9 @@
                 <h2 class="text-block-header">{{ meeting.title }} -- {{ meeting.date }}</h2>
             </div>
             <div class="subtext-block">
-            
+
             {% if meeting.image %}
-            
+
                 <img class="subtext-item" src="{{ meeting.image.url }}">
                 <div class="subtext-item">
                     <p>
@@ -41,8 +41,16 @@
                 </div>
 
             {% endif %}
-            
+
             </div>
+        </section>
+
+        {% empty %}
+
+        <section class="text-block">
+            <p>
+                Sorry, there are no scheduled upcoming meetings. Please check back soon!
+            </p>
         </section>
 
         {% endfor %}
