@@ -9,15 +9,16 @@ main {
     justify-content: space-between;
 }
 
-.brand {
-    font-size: 18px;
-    color: white;
+.brand img {
+    width: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.brand:hover {
+/*.brand:hover {
     text-decoration: none;
     color: white;
-}
+}*/
 
 .flex-header {
     display: flex;
@@ -59,7 +60,7 @@ button.green:hover {
     font-family: 'Montserrat', sans-serif;
 }
 
-.brand, .menu-buttons {
+.menu-buttons {
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -82,22 +83,32 @@ button.green:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin: 30px 40px 30px 40px;
+    max-height: 150px;
 }
 
-.home-banner > h1 {
+/*.home-banner > h1 {
     font-size: 75px;
     width: 100%;
     color: rgb(50, 76, 82);
     padding: 0px 40px 0px 40px;
+}*/
+
+.home-banner .banner-seal {
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 25%;
+    height: auto;
+    max-width: 400px;
+    min-width: 225px;
 }
 
-.home-banner img {
-    padding: 0px 40px 0px 40px;
-    width: 35%;
+.home-banner .banner-text {
+    padding-right: 40px;
+    width: 100%;
     max-width: 500px;
-    min-width: 250px;
+    min-width: 350px;
 }
 
 .section-header-plain {
@@ -219,7 +230,7 @@ footer {
     .home-banner {
         margin: 25px 30px 25px 30px;
     }
-    
+
     .home-banner > h1 {
         font-size: 50px;
     }
@@ -229,7 +240,7 @@ footer {
     .home-banner {
         margin: 20px 25px 20px 25px;
     }
-    
+
     .home-banner > h1 {
         font-size: 40px;
     }
@@ -251,11 +262,28 @@ footer {
     .home-banner {
         flex-direction: column;
         justify-content: center;
+        max-height: 300px;
     }
-    
-    .home-banner > h1 {
+
+    /*.home-banner > h1 {
         font-size: 30px;
         text-align: center;
+    }*/
+
+    .home-banner .banner-seal {
+        width: 25%;
+        flex-direction: column;
+        height: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .home-banner .banner-text {
+        width: 75%;
+        flex-direction: column;
+        height: auto;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 

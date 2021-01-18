@@ -4,6 +4,7 @@
 
 <html>
     <head>
+        <link rel="icon" href="{% static 'images/ESW_logo_grey_background.ico' %}" type="image/x-icon"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -14,11 +15,11 @@
 
     <body>
         {% include 'navbar.html' %}
-        
+
         <main>
             <section class="home-banner">
-                <img src="{% static 'images/logo-home.png' %}">
-                <h1>The Entomological Society of Washington</h1>
+                <img class="banner-seal" src="{% static 'images/ESW_home_banner_seal.png' %}">
+                <img class="banner-text" src="{% static 'images/ESW_home_banner_text.png' %}">
             </section>
 
             {% block content%}{% endblock %}
@@ -27,7 +28,7 @@
 
         <footer>
             <div class="footer-item">
-                <p>EntSocWash [Can replace with logo]</p>
+                <p><a class="brand" href="https://entsocwash.pythonanywhere.com"><img src="{% static 'images/ESW_logo_teal_background.png' %}"></a>Entomological Society of Washington</p>
                 <p>Contact Us</p>
                 <p>Website and content © 2020 Entomological Society of Washington</p>
             </div>

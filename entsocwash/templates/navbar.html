@@ -13,7 +13,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="brand" href="https://entsocwash.pythonanywhere.com">ESW</a>
+        <a class="brand" href="https://entsocwash.pythonanywhere.com"><img src="{% static 'images/ESW_logo_teal_background.png' %}"></a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
@@ -59,9 +59,10 @@
                         About
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">History of the ESW</a>
-                        <a class="dropdown-item" href="#">Seal</a>
-                        <a class="dropdown-item" href="#">Current Officers</a>
+                        <a class="dropdown-item" href="{% slugurl 'history-esw' %}">History of the ESW</a>
+                        <a class="dropdown-item" href="{% slugurl 'seal' %}">Seal</a>
+                        <a class="dropdown-item" href="{% slugurl 'current-officers' %}">Current Officers</a>
+                        <a class="dropdown-item" href="{% slugurl 'editorial-staff' %}">Editorial Staff</a>
                     </div>
                 </li>
             </ul>
