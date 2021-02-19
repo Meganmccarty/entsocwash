@@ -25,6 +25,11 @@ SECRET_KEY = 'u-d9o6of@c2h&yis-(pab+%l1fv!5^^g98l)2#(a36ki2ls4&c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
@@ -32,6 +37,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'pages',
+    'members',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -52,10 +58,17 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
     'modelcluster',
     'taggit',
+
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +105,35 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/profile/'
+#ACCOUNT_AUTHENTICATION_METHOD = 'email'
+#ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+#ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_FORMS = {
+    'signup' : 'members.forms.MemberSignupForm',
+    'login' : 'members.forms.CustomLoginForm',
+    'add_email' : 'members.forms.CustomAddEmailForm',
+}
+
+
 WSGI_APPLICATION = 'entsocwash.wsgi.application'
+
+SITE_ID = 1
 
 
 # Database
