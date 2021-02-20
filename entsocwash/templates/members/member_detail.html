@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load static %}
+
+{% block title %}Member Profile{% endblock %}
+
+{% block content %}
+
+    <h1 class="section-header dark-blue">Member Profile: {{member.first_name}} {{member.last_name }}</h1>
+    <div class="text-block-container">
+
+        <section class="text-block">
+            <div class="subtext-block">
+                <div class="subtext-item">
+                    {% if member.info_visible %}
+                        <img src="{{ member.photo.url }}">
+                        <p>
+                            <b>Name:</b> 
+                            {{ member.first_name }}
+                            {% if member.middle_name %}
+                                {{ member.middle_name }}
+                            {% endif %}
+                            {{ member.last_name }}
+                            {% if member.suffix %}
+                                {{ member.suffix }}
+                            {% endif %}
+                        </p>
+                        <p>
+                            <b>Address:</b> 
+                            {{ member.address1 }},
+                            {% if member.address2 %}
+                                {{ member.address2 }},
+                            {% endif %}
+                            {% if member.address3 %}
+                                {{ member.address3 }},
+                            {% endif %}
+                            {{ member.city }},
+                            {{ member.state }}
+                            {{ member.zip_code }},
+                            {{ member.country }}
+                        </p>
+                        <p>
+                            <b>Contact: </b> {{ member.get_email }}
+                        </p>
+                        {% if member.url %}
+                            <p>
+                                <b>Website:</b> 
+                                <a href="{{ member.url }}">{{ member.url }}</a>
+                            </p>
+                        {% endif %}
+                    {% else %}
+                        <img src="{{ member.photo.url }}">
+                        <p>
+                            <b>Name:</b> {{ member.first_name}} {{member.last_name}}
+                        </p>
+                        {% if member.url %}
+                            <p>
+                                <b>Website:</b> 
+                                <a href="{{ member.url }}">{{ member.url }}</a>
+                            </p>
+                        {% endif %}
+                        
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}

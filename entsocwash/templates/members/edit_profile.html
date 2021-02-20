@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<h1 class="section-header dark-blue">Edit {{ user.member }}'s Profile</h1>
+    <div class="text-block-container">
+
+        <section class="text-block">
+            <div class="subtext-block">
+                <div class="subtext-item">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ profile_form.as_p }}
+                        <h3>Add Phone Number(s)</h3>
+                        {{ phone_inline_form.as_p }}
+                        <button type="submit" class="green button">Save</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}

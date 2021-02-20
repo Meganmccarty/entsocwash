@@ -1,0 +1,11 @@
+{% load account %}
+{% user_display user as user.first_name %}
+{% load i18n %}
+{% autoescape off %}
+Hello, {{ user.member.first_name }}!
+
+Thank you for joining the Entomological Society of Washington!
+
+Your account is almost set up. To confirm your email, please click on the following link: {{ activate_url }}
+
+{% endautoescape %}

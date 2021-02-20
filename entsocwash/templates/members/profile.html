@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Email Addresses" %}{% endblock %}
+
+{% block content %}
+
+<h1 class="section-header dark-blue">{{ user.member }}'s Profile</h1>
+    <div class="text-block-container">
+
+        <section class="text-block">
+            <div class="subtext-block">
+                <div class="subtext-item">
+                    {% if messages %}                    
+                        {% for message in messages %}
+                            <h5><strong>{{message}}</strong></h5>
+                        {% endfor %}  
+                    {% endif %}
+                    {% if user.member.photo %}
+                        <img src="{{ user.member.photo.url }}" width="100">
+                    {% endif %}
+                    <!--<p>
+                        Test
+                        {% for copy in user.member.subject_set.all %}
+                            {{ copy.subject }}
+                        {% endfor %}
+                        {% for copy in user.member.taxonomy_set.all %}
+                            {{ copy.taxon }}
+                        {% endfor %}
+                        {% for copy in user.member.geography_set.all %}
+                            {{ copy.geography }}
+                        {% endfor %}
+                        {% for copy in user.member.phone_set.all %}
+                            {{ copy.phone_number }} - {{ copy.phone_type }}
+                        {% endfor %}
+                    </p>-->
+                    <p>
+                        <b>Username: </b> {{ user.member.get_username }}
+                    </p>
+                    <p>
+                        <b>Name:</b> 
+                        {{ user.member.first_name }}
+                        {% if user.member.middle_name %}
+                            {{ user.member.middle_name }}
+                        {% endif %}
+                        {{ user.member.last_name }}
+                        {% if user.member.suffix %}
+                            {{ user.member.suffix }}
+                        {% endif %}
+                    </p>
+                    <p>
+                        <b>Address:</b> 
+                        {{ user.member.address1 }},
+                        {% if user.member.address2 %}
+                            {{ user.member.address2 }},
+                        {% endif %}
+                        {% if user.member.address3 %}
+                            {{ user.member.address3 }},
+                        {% endif %}
+                        {{ user.member.city }},
+                        {{ user.member.state }}
+                        {{ user.member.zip_code }},
+                        {{ user.member.country }}
+                    </p>
+                    <p>
+                        <b>Contact (Primary Email): </b> {{ user.member.get_email }}
+                    </p>
+                    {% if user.member.url %}
+                        <p>
+                            <b>Website:</b> 
+                            <a href="{{ user.member.url }}">{{ user.member.url }}</a>
+                        </p>
+                    {% endif %}
+                    <p>
+                        Your contact information is currently set to: 
+                        {% if user.member.info_visible %}
+                            <b>Public</b>
+                        {% else %}
+                            <b>Private</b>
+                        {% endif %}
+                    </p>
+                    <div>
+                        <a href="{% url 'edit-profile' %}"><button class="green button">Edit Profile</button></a>
+                        <a href="{% url 'account_email' %}"><button class="green button">Email Preferences</button></a>
+                        <a href="{% url 'account_change_password' %}"><button class="green button">Change Password</button></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
