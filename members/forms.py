@@ -10,6 +10,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit
 from .custom_layout_object import *
 
+
 class PhoneForm(forms.ModelForm):
     class Meta:
         model = Phone
@@ -25,12 +26,12 @@ class PhoneForm(forms.ModelForm):
 
 PhoneInlineFormSet = inlineformset_factory(Member, Phone, form=PhoneForm, fields=('phone_number', 'phone_type',), extra=1, can_delete=True)
 
+
 # Code below uses django-allauth SignupForm
 # When used, works when saving data added to User and Member models
 # Cannot figure out how to save data to related models (example: Phone)
 # Want to mimic inline formsets that are present in Member table in Django admin
-
-class MemberSignupForm(SignupForm): 
+class MemberSignupForm(SignupForm):
     first_name = forms.CharField(label='First name*', max_length=255)
     middle_name = forms.CharField(label='Middle name', max_length=255, required=False)
     last_name = forms.CharField(label='Last name*', max_length=255)
@@ -82,10 +83,8 @@ class MemberSignupForm(SignupForm):
                 'placeholder': ''
             })
 
-    @transaction.atomic
     def save(self, request):
         user = super(MemberSignupForm, self).save(request)
-
         user.member.first_name = self.cleaned_data['first_name']
         user.member.middle_name = self.cleaned_data['middle_name']
         user.member.last_name = self.cleaned_data['last_name']
@@ -99,11 +98,11 @@ class MemberSignupForm(SignupForm):
         user.member.country = self.cleaned_data['country']
         user.member.lsid = self.cleaned_data['lsid']
         user.member.orcid = self.cleaned_data['orcid']
-        #user.member.member_phone.set() = self.cleaned_data['phone']
         user.member.photo = self.cleaned_data['photo']
         user.member.url = self.cleaned_data['url']
         user.save()
         return user
+
 
 class CustomLoginForm(LoginForm):
     pass
@@ -115,6 +114,7 @@ class CustomLoginForm(LoginForm):
                 'placeholder': ''
             })
 
+
 class CustomAddEmailForm(AddEmailForm):
     pass
 
@@ -124,6 +124,7 @@ class CustomAddEmailForm(AddEmailForm):
             field.widget.attrs.update({
                 'placeholder': ''
             })
+
 
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(label='First name*', max_length=255)

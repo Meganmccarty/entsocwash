@@ -20,7 +20,7 @@
                 <div class="subtext-item">
                     <p>Please fill out the form below to create your account.</p>
                     <p>Already have an account? Then please <a href="{{ login_url }}">sign in</a></p></p>
-                    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}" enctype="multipart/form-data">
+                    <form class="signup" id="signup_form" method="post" action="{% url 'member-signup' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ member_signup_form.as_p }}
                         {{ phone_inline_form.as_p }}
