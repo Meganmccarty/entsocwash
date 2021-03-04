@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Edit Profile{% endblock %}
 
@@ -9,11 +10,53 @@
         <section class="text-block">
             <div class="subtext-block">
                 <div class="subtext-item">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form id="main_form" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ profile_form.as_p }}
-                        <h3>Add Phone Number(s)</h3>
-                        {{ phone_inline_form.as_p }}
+                        
+                        {{ phone_inline_form.management_form }}
+
+                        {% for phone in phone_inline_form %}
+                            <div class="phone-form">
+                                {{ phone | crispy }}
+                                <button class="align-self-center btn btn-danger delete-phone-form">Delete</button>
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-phone-form" class="button green">Add Another Phone</button>
+
+                        {{ geography_inline_form.management_form }}
+
+                        {% for geography in geography_inline_form %}
+                            <div class="geography-form">
+                                {{ geography | crispy }}
+                                <button class="align-self-center btn btn-danger delete-geography-form">Delete</button>
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-geography-form" class="button green">Add Another Geography</button>
+
+                        {{ subject_inline_form.management_form }}
+
+                        {% for subject in subject_inline_form %}
+                            <div class="subject-form">
+                                {{ subject | crispy }}
+                                <button class="align-self-center btn btn-danger delete-subject-form">Delete</button>
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-subject-form" class="button green">Add Another Subject</button>
+                            
+                        {{ taxonomy_inline_form.management_form }}
+
+                        {% for taxon in taxonomy_inline_form %}
+                            <div class="taxonomy-form">
+                                {{ taxon | crispy }}
+                                <button class="align-self-center btn btn-danger delete-taxonomy-form">Delete</button>
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-taxonomy-form" class="button green">Add Another Taxonomy</button>
                         <button type="submit" class="green button">Save</button>
                     </form>
                 </div>

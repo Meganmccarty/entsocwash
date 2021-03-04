@@ -18,15 +18,60 @@
             </div>
             <div class="subtext-block">
                 <div class="subtext-item">
-                    <p>Please fill out the form below to create your account.</p>
-                    <p>Already have an account? Then please <a href="{{ login_url }}">sign in</a></p></p>
-                    <form class="signup" id="signup_form" method="post" action="{% url 'member-signup' %}" enctype="multipart/form-data">
+                    <p>Please fill out the form below to create your account. Fields marked with an * are required.</p>
+                    <p>Already have an account? Then please <a href="{% url 'account_login' %}">sign in</a></p>
+                    <form id="main_form" method="post" action="{% url 'member-signup' %}" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ member_signup_form.as_p }}
-                        {{ phone_inline_form.as_p }}
+                        {{ member_signup_form | crispy }}
+                        
+                        {{ phone_inline_form.management_form }}
+
+                        {% for phone in phone_inline_form %}
+                            <div class="phone-form">
+                                {{ phone | crispy }}
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-phone-form" class="green button btn">Add Another Phone</button>
+                        <br>
+
+                        {{ geography_inline_form.management_form }}
+
+                        {% for geography in geography_inline_form %}
+                            <div class="geography-form">
+                                {{ geography | crispy }}
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-geography-form" class="green button btn">Add Another Geography</button>
+                        <br>
+
+                        {{ subject_inline_form.management_form }}
+
+                        {% for subject in subject_inline_form %}
+                            <div class="subject-form">
+                                {{ subject | crispy }}
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-subject-form" class="green button btn">Add Another Subject</button>
+                        <br>
+                            
+                        {{ taxonomy_inline_form.management_form }}
+
+                        {% for taxon in taxonomy_inline_form %}
+                            <div class="taxonomy-form">
+                                {{ taxon | crispy }}
+                            </div>
+                        {% endfor %}
+
+                        <button id="add-taxonomy-form" class="green button btn">Add Another Taxonomy</button>
+                        
                         {% if redirect_field_value %}
                             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                         {% endif %}
+                        <br>
+                        <br>
                         <button class="green button" type="submit">{% trans "Sign Up" %}</button>
                     </form>
                 </div>

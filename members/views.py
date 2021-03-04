@@ -10,7 +10,18 @@ from django.urls import reverse_lazy
 from django.db import transaction
 from django.contrib.auth.models import User
 from .models import Member, Phone
-from .forms import MemberSignupForm, ProfileForm, PhoneForm, PhoneInlineFormSet
+from .forms import (
+    MemberSignupForm,
+    ProfileForm,
+    PhoneForm,
+    PhoneInlineFormSet,
+    GeographyForm,
+    GeographyInlineFormSet,
+    SubjectForm,
+    SubjectInlineFormSet,
+    TaxonomyForm,
+    TaxonomyInlineFormSet,
+)
 from allauth.account.forms import SignupForm
 from django.forms import modelformset_factory, inlineformset_factory
 
@@ -42,9 +53,15 @@ class MemberSignupView(SignupView):
         """
         member_signup_form = MemberSignupForm()
         phone_inline_form = PhoneInlineFormSet(instance=Member())
+        geography_inline_form = GeographyInlineFormSet(instance=Member())
+        subject_inline_form = SubjectInlineFormSet(instance=Member())
+        taxonomy_inline_form = TaxonomyInlineFormSet(instance=Member())
         return render(request, 'members/member_signup.html',
                       {'member_signup_form': member_signup_form,
-                       'phone_inline_form': phone_inline_form}
+                       'phone_inline_form': phone_inline_form,
+                       'geography_inline_form': geography_inline_form,
+                       'subject_inline_form': subject_inline_form,
+                       'taxonomy_inline_form': taxonomy_inline_form}
                       )
 
     def post(self, request, *args, **kwargs):
@@ -54,15 +71,25 @@ class MemberSignupView(SignupView):
         """
         member_form = self.get_form()
         phone_inline_form = PhoneInlineFormSet(request.POST, instance=Member())
+        geography_inline_form = GeographyInlineFormSet(request.POST, instance=Member())
+        subject_inline_form = SubjectInlineFormSet(request.POST, instance=Member())
+        taxonomy_inline_form = TaxonomyInlineFormSet(request.POST, instance=Member())
 
         # TODO: add graceful error handling here. What should the user see if these db saves fail?
         with transaction.atomic():
-            if member_form.is_valid() and phone_inline_form.is_valid():
+            if member_form.is_valid() and phone_inline_form.is_valid() and geography_inline_form.is_valid() and subject_inline_form.is_valid() and taxonomy_inline_form.is_valid():
+                
                 self.user = member_form.save(self.request)
 
                 # add the inline data
                 phone_inline_form.instance = self.user.member
                 phone_inline_form.save()
+                geography_inline_form.instance = self.user.member
+                geography_inline_form.save()
+                subject_inline_form.instance = self.user.member
+                subject_inline_form.save()
+                taxonomy_inline_form.instance = self.user.member
+                taxonomy_inline_form.save()
 
                 # this does not save the user again as part of other steps
                 return self.form_valid(member_form)
@@ -71,7 +98,10 @@ class MemberSignupView(SignupView):
                 # handle any error dicts and return to caller
                 return render(request, 'members/member_signup.html',
                               {'member_signup_form': member_form,
-                               'phone_inline_form': phone_inline_form}
+                               'phone_inline_form': phone_inline_form,
+                               'geography_inline_form': geography_inline_form,
+                               'subject_inline_form': subject_inline_form,
+                               'taxonomy_inline_form': taxonomy_inline_form}
                               )
 
 
@@ -100,13 +130,28 @@ def edit_profile(request):
     if request.method == "POST":
         profile_form = ProfileForm(request.POST, request.FILES or None, instance=request.user.member)
         phone_inline_form = PhoneInlineFormSet(request.POST, instance=request.user.member)
-        if profile_form.is_valid() and phone_inline_form.is_valid():
+        geography_inline_form = GeographyInlineFormSet(request.POST, instance=request.user.member)
+        subject_inline_form = SubjectInlineFormSet(request.POST, instance=request.user.member)
+        taxonomy_inline_form = TaxonomyInlineFormSet(request.POST, instance=request.user.member)
+        if profile_form.is_valid() and phone_inline_form.is_valid() and geography_inline_form.is_valid() and subject_inline_form.is_valid() and taxonomy_inline_form.is_valid():
             profile_form.save()
             phone_inline_form.save()
+            geography_inline_form.save()
+            subject_inline_form.save()
+            taxonomy_inline_form.save()
             #profile = form.save(commit=False)
             #profile.save()
             return redirect('profile')
     else:
         profile_form = ProfileForm(instance=user.member)
         phone_inline_form = PhoneInlineFormSet(instance=user.member)
-    return render(request, 'members/edit_profile.html', {'profile_form': profile_form, 'phone_inline_form' : phone_inline_form })
+        geography_inline_form = GeographyInlineFormSet(instance=user.member)
+        subject_inline_form = SubjectInlineFormSet(instance=user.member)
+        taxonomy_inline_form = TaxonomyInlineFormSet(instance=user.member)
+    return render(request, 'members/edit_profile.html',
+                    {'profile_form': profile_form,
+                    'phone_inline_form': phone_inline_form,
+                    'geography_inline_form': geography_inline_form,
+                    'subject_inline_form': subject_inline_form,
+                    'taxonomy_inline_form': taxonomy_inline_form,}
+                )

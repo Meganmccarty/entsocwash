@@ -1,17 +1,19 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Member, Phone
+from .models import Member, Phone, Geography, Subject, Taxonomy
 from django.db import transaction
 from allauth.account.forms import SignupForm, LoginForm, AddEmailForm
 from django.forms.models import inlineformset_factory
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit
-from .custom_layout_object import *
 
 
 class PhoneForm(forms.ModelForm):
+    phone_number = forms.CharField(label='Phone number', max_length=255, required=False)
+    phone_type = forms.CharField(label='Phone type (e.g., work)', max_length=255, required=False)
+    
     class Meta:
         model = Phone
         exclude = ()
@@ -24,34 +26,108 @@ class PhoneForm(forms.ModelForm):
                 'placeholder': ''
             })
 
-PhoneInlineFormSet = inlineformset_factory(Member, Phone, form=PhoneForm, fields=('phone_number', 'phone_type',), extra=1, can_delete=True)
+PhoneInlineFormSet = inlineformset_factory(
+    Member,
+    Phone,
+    form=PhoneForm,
+    fields=('phone_number', 'phone_type',),
+    extra=1,
+    can_delete=False
+)
 
+class GeographyForm(forms.ModelForm):
+    geography = forms.CharField(label='Geography', max_length=255, required=False)
+    
+    class Meta:
+        model = Geography
+        exclude = ()
+    
+    def __init__(self, *args, **kwargs):
+        super(GeographyForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': ''
+            })
 
-# Code below uses django-allauth SignupForm
-# When used, works when saving data added to User and Member models
-# Cannot figure out how to save data to related models (example: Phone)
-# Want to mimic inline formsets that are present in Member table in Django admin
+GeographyInlineFormSet = inlineformset_factory(
+    Member,
+    Geography,
+    form=GeographyForm,
+    fields=('geography',),
+    extra=1,
+    can_delete=False
+)
+
+class SubjectForm(forms.ModelForm):
+    subject = forms.CharField(label='Subject', max_length=255, required=False)
+
+    class Meta:
+        model = Subject
+        exclude = ()
+    
+    def __init__(self, *args, **kwargs):
+        super(SubjectForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': ''
+            })
+
+SubjectInlineFormSet = inlineformset_factory(
+    Member,
+    Subject,
+    form=SubjectForm,
+    fields=('subject',),
+    extra=1,
+    can_delete=False
+)
+
+class TaxonomyForm(forms.ModelForm):
+    taxon = forms.CharField(label='Taxonomy', max_length=255, required=False)
+
+    class Meta:
+        model = Taxonomy
+        exclude = ()
+    
+    def __init__(self, *args, **kwargs):
+        super(TaxonomyForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': ''
+            })
+
+TaxonomyInlineFormSet = inlineformset_factory(
+    Member,
+    Taxonomy,
+    form=TaxonomyForm,
+    fields=('taxon',),
+    extra=1,
+    can_delete=False
+)
+
 class MemberSignupForm(SignupForm):
-    first_name = forms.CharField(label='First name*', max_length=255)
+    first_name = forms.CharField(label='First name', max_length=255)
     middle_name = forms.CharField(label='Middle name', max_length=255, required=False)
-    last_name = forms.CharField(label='Last name*', max_length=255)
+    last_name = forms.CharField(label='Last name', max_length=255)
     suffix = forms.CharField(label='Suffix', max_length=255, required=False)
-    address1 = forms.CharField(label='Address 1*', max_length=255)
+    address1 = forms.CharField(label='Address 1', max_length=255)
     address2 = forms.CharField(label='Address 2', max_length=255, required=False)
     address3 = forms.CharField(label='Address 3', max_length=255, required=False)
-    city = forms.CharField(label='City*', max_length=255)
-    state = forms.CharField(label='State*', max_length=255)
-    zip_code = forms.CharField(label='Zip code*', max_length=10)
-    country = forms.CharField(label='Country*', max_length=255)
+    city = forms.CharField(label='City', max_length=255)
+    state = forms.CharField(label='State', max_length=255)
+    zip_code = forms.CharField(label='Zip code', max_length=10)
+    country = forms.CharField(label='Country', max_length=255)
     lsid = forms.CharField(label='LSID', max_length=255, required=False)
     orcid = forms.CharField(label='ORCID', max_length=255, required=False)
-    #phone = forms.CharField(label='Phone number', max_length=20, required=False)
-    #subject = forms.CharField(label='Subject', max_length=255, required=False)
-    #taxon = forms.CharField(label='Taxon', max_length=255, required=False)
-    #geography = forms.CharField(label='Geography', max_length=255, required=False)
     photo = forms.ImageField(label='Profile picture', required=False)
     url = forms.URLField(label='Website url', max_length=255, required=False)
-    info_visible = forms.BooleanField(required=False, label='Do you want your contact information to be displayed publicly on the website? (Check box if Yes)')
+    info_visible = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class': '', 'id': 'boolean-checkbox'}),
+        label='Make contact info public (leave unchecked to keep private)',
+    )
     
     class Meta:
         model = Member
@@ -69,7 +145,6 @@ class MemberSignupForm(SignupForm):
             'country',
             'lsid',
             'orcid',
-            #'member_phone',
             'photo',
             'url',
             'info_visible',
@@ -142,7 +217,11 @@ class ProfileForm(forms.ModelForm):
     orcid = forms.CharField(label='ORCID', max_length=255, required=False)
     photo = forms.ImageField(label='Profile picture', required=False)
     url = forms.URLField(label='Website url', max_length=255, required=False)
-    info_visible = forms.BooleanField(required=False, label='Do you want your contact information to be displayed publicly on the website? (Check box if Yes)')
+    info_visible = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class': '', 'id': 'boolean-checkbox'}),
+        label='Make contact info public (leave unchecked to keep private)',
+    )
 
     class Meta:
         model = Member
