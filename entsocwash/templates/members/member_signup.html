@@ -18,54 +18,128 @@
             </div>
             <div class="subtext-block">
                 <div class="subtext-item">
-                    <p>Please fill out the form below to create your account. Fields marked with an * are required.</p>
+                    <p>Please fill out the form below to create your account. Fields marked with an asterisk * are required.</p>
                     <p>Already have an account? Then please <a href="{% url 'account_login' %}">sign in</a></p>
                     <form id="main_form" method="post" action="{% url 'member-signup' %}" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ member_signup_form | crispy }}
-                        
-                        {{ phone_inline_form.management_form }}
 
-                        {% for phone in phone_inline_form %}
-                            <div class="phone-form">
-                                {{ phone | crispy }}
-                            </div>
-                        {% endfor %}
+                        <div id="member-form">
+                            <label>Primary Email*</label>
+                            {{ member_signup_form.email }}
 
-                        <button id="add-phone-form" class="green button btn">Add Another Phone</button>
-                        <br>
+                            <br>
+                            <p>Secondary Email(s)</p>
 
-                        {{ geography_inline_form.management_form }}
+                            {{ email_inline_form.management_form }}
+                            {% for email in email_inline_form %}
+                                <div class="email-form">
+                                    {{ email }}
+                                </div>
+                            {% endfor %}
 
-                        {% for geography in geography_inline_form %}
-                            <div class="geography-form">
-                                {{ geography | crispy }}
-                            </div>
-                        {% endfor %}
+                            <button id="add-email-form" class="green button btn">Add Another Email</button>
+                            <br>
 
-                        <button id="add-geography-form" class="green button btn">Add Another Geography</button>
-                        <br>
+                            <label>{{ member_signup_form.username.label }}*</label>
+                            {{ member_signup_form.username }}
 
-                        {{ subject_inline_form.management_form }}
+                            <label>{{ member_signup_form.first_name.label }}*</label>
+                            {{ member_signup_form.first_name }}
 
-                        {% for subject in subject_inline_form %}
-                            <div class="subject-form">
-                                {{ subject | crispy }}
-                            </div>
-                        {% endfor %}
+                            <label>{{ member_signup_form.middle_name.label }}</label>
+                            {{ member_signup_form.middle_name }}
 
-                        <button id="add-subject-form" class="green button btn">Add Another Subject</button>
-                        <br>
+                            <label>{{ member_signup_form.last_name.label }}*</label>
+                            {{ member_signup_form.last_name }}
+
+                            <label>{{ member_signup_form.suffix.label }}</label>
+                            {{ member_signup_form.suffix }}
+
+                            <label>{{ member_signup_form.address1.label }}*</label>
+                            {{ member_signup_form.address1 }}
+
+                            <label>{{ member_signup_form.address2.label }}</label>
+                            {{ member_signup_form.address2 }}
+
+                            <label>{{ member_signup_form.address3.label }}</label>
+                            {{ member_signup_form.address3 }}
+
+                            <label>{{ member_signup_form.city.label }}*</label>
+                            {{ member_signup_form.city }}
+
+                            <label>{{ member_signup_form.state.label }}*</label>
+                            {{ member_signup_form.state }}
+
+                            <label>{{ member_signup_form.zip_code.label }}*</label>
+                            {{ member_signup_form.zip_code }}
+
+                            <label>{{ member_signup_form.country.label }}*</label>
+                            {{ member_signup_form.country }}
+
+                            {{ phone_inline_form.management_form }}
+                            {% for phone in phone_inline_form %}
+                                <div class="phone-form">
+                                    {{ phone | crispy }}
+                                </div>
+                            {% endfor %}
+
+                            <button id="add-phone-form" class="green button btn">Add Another Phone</button>
+                            <br>
+
+                            <label>{{ member_signup_form.lsid.label }}</label>
+                            {{ member_signup_form.lsid }}
+
+                            <label>{{ member_signup_form.orcid.label }}</label>
+                            {{ member_signup_form.orcid }}
+
+                            <label>{{ member_signup_form.photo.label }}</label>
+                            {{ member_signup_form.photo }}
+
+                            <label>{{ member_signup_form.url.label }}</label>
+                            {{ member_signup_form.url }}
+
+                            <label>{{ member_signup_form.info_visible.label }}</label>
+                            {{ member_signup_form.info_visible }}
+
+                            <br>
+
+                            {{ geography_inline_form.management_form }}
+                            {% for geography in geography_inline_form %}
+                                <div class="geography-form">
+                                    {{ geography }}
+                                </div>
+                            {% endfor %}
+
+                            <button id="add-geography-form" class="green button btn">Add Another Geography</button>
+                            <br>
+
+                            {{ subject_inline_form.management_form }}
+                            {% for subject in subject_inline_form %}
+                                <div class="subject-form">
+                                    {{ subject }}
+                                </div>
+                            {% endfor %}
+
+                            <button id="add-subject-form" class="green button btn">Add Another Subject</button>
+                            <br>
                             
-                        {{ taxonomy_inline_form.management_form }}
+                            {{ taxonomy_inline_form.management_form }}
+                            {% for taxon in taxonomy_inline_form %}
+                                <div class="taxonomy-form">
+                                    {{ taxon }}
+                                </div>
+                            {% endfor %}
 
-                        {% for taxon in taxonomy_inline_form %}
-                            <div class="taxonomy-form">
-                                {{ taxon | crispy }}
-                            </div>
-                        {% endfor %}
+                            <button id="add-taxonomy-form" class="green button btn">Add Another Taxonomy</button>
+                            <br>
 
-                        <button id="add-taxonomy-form" class="green button btn">Add Another Taxonomy</button>
+                            <label>{{ member_signup_form.password1.label }}*</label>
+                            {{ member_signup_form.password1 }}
+
+                            <label>{{ member_signup_form.password2.label }}*</label>
+                            {{ member_signup_form.password2 }}
+
+                        </div>
                         
                         {% if redirect_field_value %}
                             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

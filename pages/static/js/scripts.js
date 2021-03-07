@@ -3,6 +3,50 @@
 
 // Variables used for all functions
 const mainForm = document.querySelector("#main_form");
+const memberForm = document.querySelector("#member-form")
+
+// Email
+const emailForm = document.getElementsByClassName("email-form");
+const addEmailFormBtn = document.querySelector("#add-email-form");
+const totalEmailForms = document.querySelector("#id_has_emails-TOTAL_FORMS");
+
+let formEmailCount = emailForm.length - 1;
+
+function updateForms() {
+    let count = 0;
+    for (let form of emailForm) {
+        const formRegex = RegExp(`has_emails-(\\d){1}-`, 'g');
+        form.innerHTML = form.innerHTML.replace(formRegex, `has_emails-${count++}-`)
+    }
+}
+
+addEmailFormBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const newEmailForm = emailForm[0].cloneNode(true);
+    const newEmailDelBtn = document.createElement("button")
+    newEmailDelBtn.className = "button btn-danger delete-email-form"
+    newEmailDelBtn.innerText = "Delete"
+    const formRegex = RegExp(`has_emails-(\\d){1}-`, 'g');
+
+    formEmailCount++;
+
+    newEmailForm.innerHTML = newEmailForm.innerHTML.replace(formRegex, `has_emails-${formEmailCount}-`);
+    memberForm.insertBefore(newEmailForm, addEmailFormBtn);
+    newEmailForm.appendChild(newEmailDelBtn);
+    totalEmailForms.setAttribute('value', `${formEmailCount + 1}`);
+});
+
+mainForm.addEventListener("click", function (event) {
+    if (event.target.classList.contains("delete-email-form")) {
+        event.preventDefault();
+        event.target.parentElement.remove();
+        formEmailCount--;
+        updateForms();
+        totalEmailForms.setAttribute('value', `${formEmailCount + 1}`);
+    }
+});
+
 
 // Phone
 const phoneForm = document.getElementsByClassName("phone-form");
@@ -31,7 +75,7 @@ addPhoneFormBtn.addEventListener("click", function (event) {
     formPhoneCount++;
 
     newPhoneForm.innerHTML = newPhoneForm.innerHTML.replace(formRegex, `has_phones-${formPhoneCount}-`);
-    mainForm.insertBefore(newPhoneForm, addPhoneFormBtn);
+    memberForm.insertBefore(newPhoneForm, addPhoneFormBtn);
     newPhoneForm.appendChild(newPhoneDelBtn);
     totalPhoneForms.setAttribute('value', `${formPhoneCount + 1}`);
 });
@@ -73,7 +117,7 @@ addGeographyFormBtn.addEventListener("click", function (event) {
     formGeographyCount++;
 
     newGeographyForm.innerHTML = newGeographyForm.innerHTML.replace(formRegex, `has_geographies-${formGeographyCount}-`);
-    mainForm.insertBefore(newGeographyForm, addGeographyFormBtn);
+    memberForm.insertBefore(newGeographyForm, addGeographyFormBtn);
     newGeographyForm.appendChild(newGeographyDelBtn);
     totalGeographyForms.setAttribute('value', `${formGeographyCount + 1}`);
 });
@@ -115,7 +159,7 @@ addSubjectFormBtn.addEventListener("click", function (event) {
     formSubjectCount++;
 
     newSubjectForm.innerHTML = newSubjectForm.innerHTML.replace(formRegex, `has_subjects-${formSubjectCount}-`);
-    mainForm.insertBefore(newSubjectForm, addSubjectFormBtn);
+    memberForm.insertBefore(newSubjectForm, addSubjectFormBtn);
     newSubjectForm.appendChild(newSubjectDelBtn);
     totalSubjectForms.setAttribute('value', `${formSubjectCount + 1}`);
 });
@@ -157,7 +201,7 @@ addTaxonomyFormBtn.addEventListener("click", function (event) {
     formTaxonomyCount++;
 
     newTaxonomyForm.innerHTML = newTaxonomyForm.innerHTML.replace(formRegex, `has_taxons-${formTaxonomyCount}-`);
-    mainForm.insertBefore(newTaxonomyForm, addTaxonomyFormBtn);
+    memberForm.insertBefore(newTaxonomyForm, addTaxonomyFormBtn);
     newTaxonomyForm.appendChild(newTaxonomyDelBtn);
     totalTaxonomyForms.setAttribute('value', `${formTaxonomyCount + 1}`);
 });

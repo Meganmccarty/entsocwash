@@ -232,6 +232,7 @@ footer {
     justify-content: flex-start;
 }
 
+.email-form,
 .geography-form,
 .subject-form,
 .taxonomy-form {
@@ -240,12 +241,23 @@ footer {
     justify-content: flex-start;
 }
 
+.email-form label, .email-form input,
+.geography-form label, .geography-form input,
+.subject-form label, .subject-form input,
+.taxonomy-form label, .taxonomy-form input {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .controls {
     margin-left: 5px;
     margin-right: 5px;
 }
 
 .button.delete-phone-form,
+.button.delete-email-form,
 .button.delete-geography-form,
 .button.delete-subject-form,
 .button.delete-taxonomy-form {
@@ -254,7 +266,10 @@ footer {
     border: 0px;
     border-radius: 5px;
     padding: 7px 12px 7px 12px;
-    margin: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
 }

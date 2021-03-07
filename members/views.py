@@ -15,12 +15,15 @@ from .forms import (
     ProfileForm,
     PhoneForm,
     PhoneInlineFormSet,
+    EmailForm,
+    EmailInlineFormSet,
     GeographyForm,
     GeographyInlineFormSet,
     SubjectForm,
     SubjectInlineFormSet,
     TaxonomyForm,
     TaxonomyInlineFormSet,
+    UserForm,
 )
 from allauth.account.forms import SignupForm
 from django.forms import modelformset_factory, inlineformset_factory
@@ -53,12 +56,14 @@ class MemberSignupView(SignupView):
         """
         member_signup_form = MemberSignupForm()
         phone_inline_form = PhoneInlineFormSet(instance=Member())
+        email_inline_form = EmailInlineFormSet(instance=Member())
         geography_inline_form = GeographyInlineFormSet(instance=Member())
         subject_inline_form = SubjectInlineFormSet(instance=Member())
         taxonomy_inline_form = TaxonomyInlineFormSet(instance=Member())
         return render(request, 'members/member_signup.html',
                       {'member_signup_form': member_signup_form,
                        'phone_inline_form': phone_inline_form,
+                       'email_inline_form': email_inline_form,
                        'geography_inline_form': geography_inline_form,
                        'subject_inline_form': subject_inline_form,
                        'taxonomy_inline_form': taxonomy_inline_form}
@@ -71,6 +76,7 @@ class MemberSignupView(SignupView):
         """
         member_form = self.get_form()
         phone_inline_form = PhoneInlineFormSet(request.POST, instance=Member())
+        email_inline_form = EmailInlineFormSet(request.POST, instance=Member())
         geography_inline_form = GeographyInlineFormSet(request.POST, instance=Member())
         subject_inline_form = SubjectInlineFormSet(request.POST, instance=Member())
         taxonomy_inline_form = TaxonomyInlineFormSet(request.POST, instance=Member())
@@ -84,6 +90,8 @@ class MemberSignupView(SignupView):
                 # add the inline data
                 phone_inline_form.instance = self.user.member
                 phone_inline_form.save()
+                email_inline_form.instance = self.user.member
+                email_inline_form.save()
                 geography_inline_form.instance = self.user.member
                 geography_inline_form.save()
                 subject_inline_form.instance = self.user.member
@@ -99,6 +107,7 @@ class MemberSignupView(SignupView):
                 return render(request, 'members/member_signup.html',
                               {'member_signup_form': member_form,
                                'phone_inline_form': phone_inline_form,
+                               'email_inline_form': email_inline_form,
                                'geography_inline_form': geography_inline_form,
                                'subject_inline_form': subject_inline_form,
                                'taxonomy_inline_form': taxonomy_inline_form}
@@ -128,14 +137,18 @@ def profile(request):
 def edit_profile(request):
     user = request.user
     if request.method == "POST":
+        user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES or None, instance=request.user.member)
         phone_inline_form = PhoneInlineFormSet(request.POST, instance=request.user.member)
+        email_inline_form = EmailInlineFormSet(request.POST, instance=request.user.member)
         geography_inline_form = GeographyInlineFormSet(request.POST, instance=request.user.member)
         subject_inline_form = SubjectInlineFormSet(request.POST, instance=request.user.member)
         taxonomy_inline_form = TaxonomyInlineFormSet(request.POST, instance=request.user.member)
-        if profile_form.is_valid() and phone_inline_form.is_valid() and geography_inline_form.is_valid() and subject_inline_form.is_valid() and taxonomy_inline_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid() and phone_inline_form.is_valid() and email_inline_form.is_valid() and geography_inline_form.is_valid() and subject_inline_form.is_valid() and taxonomy_inline_form.is_valid():
+            user_form.save()
             profile_form.save()
             phone_inline_form.save()
+            email_inline_form.save()
             geography_inline_form.save()
             subject_inline_form.save()
             taxonomy_inline_form.save()
@@ -143,14 +156,18 @@ def edit_profile(request):
             #profile.save()
             return redirect('profile')
     else:
+        user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=user.member)
         phone_inline_form = PhoneInlineFormSet(instance=user.member)
+        email_inline_form = EmailInlineFormSet(instance=user.member)
         geography_inline_form = GeographyInlineFormSet(instance=user.member)
         subject_inline_form = SubjectInlineFormSet(instance=user.member)
         taxonomy_inline_form = TaxonomyInlineFormSet(instance=user.member)
     return render(request, 'members/edit_profile.html',
-                    {'profile_form': profile_form,
+                    {'user_form': user_form,
+                    'profile_form': profile_form,
                     'phone_inline_form': phone_inline_form,
+                    'email_inline_form': email_inline_form,
                     'geography_inline_form': geography_inline_form,
                     'subject_inline_form': subject_inline_form,
                     'taxonomy_inline_form': taxonomy_inline_form,}

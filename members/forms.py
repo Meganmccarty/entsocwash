@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Member, Phone, Geography, Subject, Taxonomy
+from .models import Member, Phone, Email, Geography, Subject, Taxonomy
 from django.db import transaction
 from allauth.account.forms import SignupForm, LoginForm, AddEmailForm
 from django.forms.models import inlineformset_factory
@@ -31,6 +31,30 @@ PhoneInlineFormSet = inlineformset_factory(
     Phone,
     form=PhoneForm,
     fields=('phone_number', 'phone_type',),
+    extra=1,
+    can_delete=False
+)
+
+class EmailForm(forms.ModelForm):
+    email_address = forms.EmailField(label='Email', max_length=255, required=False)
+
+    class Meta:
+        model = Email
+        exclude = ()
+    
+    def __init__(self, *args, **kwargs):
+        super(EmailForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': ''
+            })
+
+EmailInlineFormSet = inlineformset_factory(
+    Member,
+    Email,
+    form=EmailForm,
+    fields=('email_address',),
     extra=1,
     can_delete=False
 )
@@ -246,6 +270,23 @@ class ProfileForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': ''
+            })
+
+class UserForm(forms.ModelForm):
+    pass
+
+    class Meta:
+        model = User
+        fields = [
+            'email',
+        ]
+    
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
         for fieldname, field in self.fields.items():
             field.widget.attrs.update({
                 'class': 'form-control',

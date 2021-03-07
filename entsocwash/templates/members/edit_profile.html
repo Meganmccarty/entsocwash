@@ -12,51 +12,114 @@
                 <div class="subtext-item">
                     <form id="main_form" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ profile_form.as_p }}
-                        
-                        {{ phone_inline_form.management_form }}
+                        <div id="member-form">
+                            <label>Primary Email*</label>
+                            {{ user_form.email }}
 
-                        {% for phone in phone_inline_form %}
-                            <div class="phone-form">
-                                {{ phone | crispy }}
-                                <button class="align-self-center btn btn-danger delete-phone-form">Delete</button>
-                            </div>
-                        {% endfor %}
+                            <br>
+                            <p>Secondary Email(s)</p>
 
-                        <button id="add-phone-form" class="button green">Add Another Phone</button>
+                            {{ email_inline_form.management_form }}
+                            {% for email in email_inline_form %}
+                                <div class="email-form">
+                                    {{ email }}
+                                </div>
+                            {% endfor %}
 
-                        {{ geography_inline_form.management_form }}
+                            <button id="add-email-form" class="green button btn">Add Another Email</button>
+                            <br>
 
-                        {% for geography in geography_inline_form %}
-                            <div class="geography-form">
-                                {{ geography | crispy }}
-                                <button class="align-self-center btn btn-danger delete-geography-form">Delete</button>
-                            </div>
-                        {% endfor %}
+                            <label>{{ profile_form.first_name.label }}</label>
+                            {{ profile_form.first_name }}
 
-                        <button id="add-geography-form" class="button green">Add Another Geography</button>
+                            <label>{{ profile_form.middle_name.label }}</label>
+                            {{ profile_form.middle_name }}
 
-                        {{ subject_inline_form.management_form }}
+                            <label>{{ profile_form.last_name.label }}</label>
+                            {{ profile_form.last_name }}
 
-                        {% for subject in subject_inline_form %}
-                            <div class="subject-form">
-                                {{ subject | crispy }}
-                                <button class="align-self-center btn btn-danger delete-subject-form">Delete</button>
-                            </div>
-                        {% endfor %}
+                            <label>{{ profile_form.suffix.label }}</label>
+                            {{ profile_form.suffix }}
 
-                        <button id="add-subject-form" class="button green">Add Another Subject</button>
+                            <label>{{ profile_form.address1.label }}</label>
+                            {{ profile_form.address1 }}
+
+                            <label>{{ profile_form.address2.label }}</label>
+                            {{ profile_form.address2 }}
+
+                            <label>{{ profile_form.address3.label }}</label>
+                            {{ profile_form.address3 }}
+
+                            <label>{{ profile_form.city.label }}</label>
+                            {{ profile_form.city }}
+
+                            <label>{{ profile_form.state.label }}</label>
+                            {{ profile_form.state }}
+
+                            <label>{{ profile_form.zip_code.label }}</label>
+                            {{ profile_form.zip_code }}
+
+                            <label>{{ profile_form.country.label }}</label>
+                            {{ profile_form.country }}
+
+                            {{ phone_inline_form.management_form }}
+                            {% for phone in phone_inline_form %}
+                                <div class="phone-form">
+                                    {{ phone | crispy }}
+                                </div>
+                            {% endfor %}
+
+                            <button id="add-phone-form" class="green button btn">Add Another Phone</button>
+                            <br>
+
+                            <label>{{ profile_form.lsid.label }}</label>
+                            {{ profile_form.lsid }}
+
+                            <label>{{ profile_form.orcid.label }}</label>
+                            {{ profile_form.orcid }}
+
+                            <label>{{ profile_form.photo.label }}</label>
+                            {{ profile_form.photo }}
+
+                            <label>{{ profile_form.url.label }}</label>
+                            {{ profile_form.url }}
+
+                            <label>{{ profile_form.info_visible.label }}</label>
+                            {{ profile_form.info_visible }}
+
+                            <br>
+
+                            {{ geography_inline_form.management_form }}
+                            {% for geography in geography_inline_form %}
+                                <div class="geography-form">
+                                    {{ geography }}
+                                </div>
+                            {% endfor %}
+
+                            <button id="add-geography-form" class="green button btn">Add Another Geography</button>
+                            <br>
+
+                            {{ subject_inline_form.management_form }}
+                            {% for subject in subject_inline_form %}
+                                <div class="subject-form">
+                                    {{ subject }}
+                                </div>
+                            {% endfor %}
+
+                            <button id="add-subject-form" class="green button btn">Add Another Subject</button>
+                            <br>
                             
-                        {{ taxonomy_inline_form.management_form }}
+                            {{ taxonomy_inline_form.management_form }}
+                            {% for taxon in taxonomy_inline_form %}
+                                <div class="taxonomy-form">
+                                    {{ taxon }}
+                                </div>
+                            {% endfor %}
 
-                        {% for taxon in taxonomy_inline_form %}
-                            <div class="taxonomy-form">
-                                {{ taxon | crispy }}
-                                <button class="align-self-center btn btn-danger delete-taxonomy-form">Delete</button>
-                            </div>
-                        {% endfor %}
+                            <button id="add-taxonomy-form" class="green button btn">Add Another Taxonomy</button>
+                            <br>
 
-                        <button id="add-taxonomy-form" class="button green">Add Another Taxonomy</button>
+                        </div>
                         <button type="submit" class="green button">Save</button>
                     </form>
                 </div>

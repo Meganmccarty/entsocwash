@@ -57,6 +57,13 @@ class Phone(models.Model):
     def __str__(self):
         return self.phone_number
 
+class Email(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='has_emails')
+    email_address = models.EmailField(max_length=255)
+
+    def __str__(self):
+        return self.email_address
+
 class Geography(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='has_geographies')
     geography = models.CharField(max_length=255)
