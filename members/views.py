@@ -28,6 +28,9 @@ from .forms import (
 from allauth.account.forms import SignupForm
 from django.forms import modelformset_factory, inlineformset_factory
 
+def page_does_not_exist(request):
+    return render(request, '404.html')
+
 
 class MemberSignupView(SignupView):
     """
