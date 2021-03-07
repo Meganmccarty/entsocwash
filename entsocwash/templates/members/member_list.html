@@ -12,14 +12,22 @@
 
         <section class="text-block">
             <div class="subtext-block">
-                <div class="subtext-item">
-                    <ul>
-                        {% for member in members %}
-
-                        <a href="{% url 'member-profile' member.member_id %}"><li>{{ member.first_name }} {{member.last_name}}</li></a>
-
-                        {% endfor %}
-                    </ul>
+                <div class="membership-directory">
+                    {% for member in members %}
+                        <div class="member-icon">
+                            <a href="{% url 'member-profile' member.member_id %}">
+                                {% if member.photo %}
+                                    <img class="member-img" src="{{ member.photo.url }}">
+                                {% else %}
+                                    <img class="member-img" src="{% static 'images/blank-user.png' %}">
+                                {% endif %}
+                            </a>
+                            <a href="{% url 'member-profile' member.member_id %}">
+                                {{ member }}
+                            </a>
+                            
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

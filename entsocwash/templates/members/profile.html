@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{% trans "Email Addresses" %}{% endblock %}
 
@@ -11,74 +12,153 @@
         <section class="text-block">
             <div class="subtext-block">
                 <div class="subtext-item">
-                    {% if messages %}                    
-                        {% for message in messages %}
-                            <h5><strong>{{message}}</strong></h5>
-                        {% endfor %}  
-                    {% endif %}
-                    {% if user.member.photo %}
-                        <img src="{{ user.member.photo.url }}" width="100">
-                    {% endif %}
-                    <!--<p>
-                        Test
-                        {% for copy in user.member.subject_set.all %}
-                            {{ copy.subject }}
-                        {% endfor %}
-                        {% for copy in user.member.taxonomy_set.all %}
-                            {{ copy.taxon }}
-                        {% endfor %}
-                        {% for copy in user.member.geography_set.all %}
-                            {{ copy.geography }}
-                        {% endfor %}
-                        {% for copy in user.member.phone_set.all %}
-                            {{ copy.phone_number }} - {{ copy.phone_type }}
-                        {% endfor %}
-                    </p>-->
-                    <p>
-                        <b>Username: </b> {{ user.member.get_username }}
-                    </p>
-                    <p>
-                        <b>Name:</b> 
-                        {{ user.member.first_name }}
-                        {% if user.member.middle_name %}
-                            {{ user.member.middle_name }}
+                    <div>
+                        {% if messages %}                    
+                            {% for message in messages %}
+                                <h5><strong>{{message}}</strong></h5>
+                            {% endfor %}  
                         {% endif %}
-                        {{ user.member.last_name }}
-                        {% if user.member.suffix %}
-                            {{ user.member.suffix }}
-                        {% endif %}
-                    </p>
-                    <p>
-                        <b>Address:</b> 
-                        {{ user.member.address1 }},
-                        {% if user.member.address2 %}
-                            {{ user.member.address2 }},
-                        {% endif %}
-                        {% if user.member.address3 %}
-                            {{ user.member.address3 }},
-                        {% endif %}
-                        {{ user.member.city }},
-                        {{ user.member.state }}
-                        {{ user.member.zip_code }},
-                        {{ user.member.country }}
-                    </p>
-                    <p>
-                        <b>Contact (Primary Email): </b> {{ user.member.get_email }}
-                    </p>
-                    {% if user.member.url %}
-                        <p>
-                            <b>Website:</b> 
-                            <a href="{{ user.member.url }}">{{ user.member.url }}</a>
-                        </p>
-                    {% endif %}
-                    <p>
-                        Your contact information is currently set to: 
-                        {% if user.member.info_visible %}
-                            <b>Public</b>
+                    </div>
+                    <section>
+                        {% if user.member.photo %}
+                            <img class="user-profile-img" src="{{ user.member.photo.url }}">
                         {% else %}
-                            <b>Private</b>
+                            <img class="user-profile-img" src="{% static 'images/blank-user.png' %}">
                         {% endif %}
-                    </p>
+                    </section>
+                    <section>
+                        <h2>Profile Information</h2>
+                        <div class="profile-box">
+                            <p>
+                                <b>Username:</b> {{ user.member.get_username }}
+                            </p>
+                            <p>
+                                <b>Name:</b> 
+                                {{ user.member.first_name }}
+                                {% if user.member.middle_name %}
+                                    {{ user.member.middle_name }}
+                                {% endif %}
+                                {{ user.member.last_name }}
+                                {% if user.member.suffix %}
+                                    {{ user.member.suffix }}
+                                {% endif %}
+                            </p>
+                            {% if user.member.url %}
+                                <p>
+                                    <b>Website: </b>
+                                    <a href="{{ user.member.url }}">{{ user.member.url }}</a>
+                                </p>
+                            {% endif %}
+                            {% if user.member.lsid %}
+                                <p>
+                                    <b>LSID: </b>
+                                    {{ user.member.lsid }}
+                                </p>
+                            {% endif %}
+                            {% if user.member.orcid %}
+                                <p>
+                                    <b>ORCID: </b>
+                                    {{ user.member.orcid }}
+                                </p>
+                            {% endif %}
+                        </div>
+                        <h2>Areas of Interest</h2>
+                        <div class="profile-box">
+                            <p>
+                                <b>Geography:</b>
+                                {% if user.member.has_geographies.all %}
+                                    <ul>
+                                    {% for geography in user.member.has_geographies.all %}
+                                        <li>{{ geography }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </p>
+                            <p>
+                                <b>Subject(s):</b>
+                                {% if user.member.has_subjects.all %}
+                                    <ul>
+                                    {% for subject in user.member.has_subjects.all %}
+                                        <li>{{ subject }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </p>
+                            <p>
+                                <b>Taxonomy:</b>
+                                {% if user.member.has_taxonomies.all %}
+                                    <ul>
+                                    {% for taxon in user.member.has_taxonomies.all %}
+                                        <li>{{ taxon }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </p>
+                        </div>
+                        <h2>Contact Information</h2>
+                        <div class="profile-box">
+                            <p>
+                                <b>Address:</b> 
+                                {{ user.member.address1 }},
+                                {% if user.member.address2 %}
+                                    {{ user.member.address2 }},
+                                {% endif %}
+                                {% if user.member.address3 %}
+                                    {{ user.member.address3 }},
+                                {% endif %}
+                                {{ user.member.city }},
+                                {{ user.member.state }}
+                                {{ user.member.zip_code }},
+                                {{ user.member.country }}
+                            </p>
+                            <p>
+                                <b>Contact (Primary Email): </b> {{ user.member.get_email }}
+                            </p>
+                            <p>
+                                <b>Secondary Email(s):</b>
+                                {% if user.member.has_emails.all %}
+                                    <ul>
+                                    {% for email in user.member.has_emails.all %}
+                                        <li>{{ email.email_address }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </p>
+                            <p>
+                                <b>Phone Number(s):</b>
+                                {% if user.member.has_phones.all %}
+                                    <ul>
+                                    {% for phone in user.member.has_phones.all %}
+                                        <li>{{ phone.phone_number }} – {{ phone.phone_type }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </p>
+                        </div>
+                        <p>
+                            Your contact information is currently set to: 
+                            {% if user.member.info_visible %}
+                                <b>Public</b>
+                                <br>
+                                Your address, email address(es), and phone number(s) are shown to the public
+                            {% else %}
+                                <b>Private</b>
+                                <br>
+                                Your address, email address(es) and phone number(s) are hidden from the public
+                            {% endif %}
+                        </p>
+                    </section>
+            
                     <div>
                         <a href="{% url 'edit-profile' %}"><button class="green button">Edit Profile</button></a>
                         <a href="{% url 'account_change_password' %}"><button class="green button">Change Password</button></a>

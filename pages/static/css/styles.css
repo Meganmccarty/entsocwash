@@ -191,6 +191,44 @@ button.brown:hover {
 
 .subtext-item {
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.membership-directory {
+    padding: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.member-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.membership-directory img.member-img {
+    min-width: 100px;
+    max-width: 175px;
+    width: 100%;
+}
+
+section img.user-profile-img {
+    min-width: 150px;
+    max-width: 250px;
+    width: 100%;
+}
+
+.profile-box {
+    border: 5px solid rgb(30, 52, 47);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .text-block img {
