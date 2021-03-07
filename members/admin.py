@@ -5,7 +5,7 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 
-from .models import User, Member, Phone, Subject, Taxonomy, Geography
+from .models import User, Member, Phone, Email, Subject, Taxonomy, Geography
 
 @admin.register(Phone)
 class PhoneAdmin(admin.ModelAdmin):
@@ -13,6 +13,14 @@ class PhoneAdmin(admin.ModelAdmin):
 
 class PhoneInline(admin.TabularInline):
     model = Phone
+    extra = 0
+
+@admin.register(Email)
+class EmailAdmin(admin.ModelAdmin):
+    list_display = ['email_address']
+
+class EmailInline(admin.TabularInline):
+    model = Email
     extra = 0
 
 @admin.register(Subject)
@@ -42,7 +50,7 @@ class GeographyInline(admin.TabularInline):
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name')
-    inlines = [PhoneInline, SubjectInline, TaxonomyInline, GeographyInline]
+    inlines = [EmailInline, PhoneInline, SubjectInline, TaxonomyInline, GeographyInline]
 
 
 class MembershipAdmin(ModelAdmin):
