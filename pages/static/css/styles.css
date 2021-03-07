@@ -220,7 +220,7 @@ footer {
     flex-direction: column;
 }
 
-#boolean-checkbox {
+#boolean-checkbox, #id_remember {
     display: inline;
     width: 20px;
     height: 20px;

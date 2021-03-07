@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Member, Phone, Email, Geography, Subject, Taxonomy
 from django.db import transaction
-from allauth.account.forms import SignupForm, LoginForm, AddEmailForm
+from allauth.account.forms import SignupForm, LoginForm, AddEmailForm, ChangePasswordForm
 from django.forms.models import inlineformset_factory
 
 from crispy_forms.helper import FormHelper
@@ -210,20 +210,20 @@ class CustomLoginForm(LoginForm):
         super(CustomLoginForm, self).__init__(*args, **kwargs)
         for fieldname, field in self.fields.items():
             field.widget.attrs.update({
+                'class': 'form-control',
                 'placeholder': ''
             })
 
-
-class CustomAddEmailForm(AddEmailForm):
+class CustomChangePasswordForm(ChangePasswordForm):
     pass
 
     def __init__(self, *args, **kwargs):
-        super(CustomAddEmailForm, self).__init__(*args, **kwargs)
+        super(CustomChangePasswordForm, self).__init__(*args, **kwargs)
         for fieldname, field in self.fields.items():
             field.widget.attrs.update({
+                'class': 'form-control',
                 'placeholder': ''
             })
-
 
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(label='First name*', max_length=255)

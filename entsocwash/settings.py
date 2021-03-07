@@ -127,7 +127,7 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_FORMS = {
     'signup' : 'members.forms.MemberSignupForm',
     'login' : 'members.forms.CustomLoginForm',
-    'add_email' : 'members.forms.CustomAddEmailForm',
+    'change_password' : 'members.forms.CustomChangePasswordForm',
 }
 
 
