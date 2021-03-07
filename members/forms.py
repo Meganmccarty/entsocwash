@@ -32,7 +32,7 @@ PhoneInlineFormSet = inlineformset_factory(
     form=PhoneForm,
     fields=('phone_number', 'phone_type',),
     extra=1,
-    can_delete=False
+    can_delete=True
 )
 
 class EmailForm(forms.ModelForm):
@@ -56,7 +56,7 @@ EmailInlineFormSet = inlineformset_factory(
     form=EmailForm,
     fields=('email_address',),
     extra=1,
-    can_delete=False
+    can_delete=True
 )
 
 class GeographyForm(forms.ModelForm):
@@ -80,7 +80,7 @@ GeographyInlineFormSet = inlineformset_factory(
     form=GeographyForm,
     fields=('geography',),
     extra=1,
-    can_delete=False
+    can_delete=True
 )
 
 class SubjectForm(forms.ModelForm):
@@ -104,7 +104,7 @@ SubjectInlineFormSet = inlineformset_factory(
     form=SubjectForm,
     fields=('subject',),
     extra=1,
-    can_delete=False
+    can_delete=True
 )
 
 class TaxonomyForm(forms.ModelForm):
@@ -128,7 +128,7 @@ TaxonomyInlineFormSet = inlineformset_factory(
     form=TaxonomyForm,
     fields=('taxon',),
     extra=1,
-    can_delete=False
+    can_delete=True
 )
 
 class MemberSignupForm(SignupForm):

@@ -24,16 +24,16 @@ addEmailFormBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     const newEmailForm = emailForm[0].cloneNode(true);
-    const newEmailDelBtn = document.createElement("button")
-    newEmailDelBtn.className = "button btn-danger delete-email-form"
-    newEmailDelBtn.innerText = "Delete"
+    //const newEmailDelBtn = document.createElement("button")
+    //newEmailDelBtn.className = "button btn-danger delete-email-form"
+    //newEmailDelBtn.innerText = "Delete"
     const formRegex = RegExp(`has_emails-(\\d){1}-`, 'g');
 
     formEmailCount++;
 
     newEmailForm.innerHTML = newEmailForm.innerHTML.replace(formRegex, `has_emails-${formEmailCount}-`);
     memberForm.insertBefore(newEmailForm, addEmailFormBtn);
-    newEmailForm.appendChild(newEmailDelBtn);
+    //newEmailForm.appendChild(newEmailDelBtn);
     totalEmailForms.setAttribute('value', `${formEmailCount + 1}`);
 });
 
@@ -67,16 +67,16 @@ addPhoneFormBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     const newPhoneForm = phoneForm[0].cloneNode(true);
-    const newPhoneDelBtn = document.createElement("button")
-    newPhoneDelBtn.className = "button btn-danger delete-phone-form"
-    newPhoneDelBtn.innerText = "Delete"
+    //const newPhoneDelBtn = document.createElement("button")
+    //newPhoneDelBtn.className = "button btn-danger delete-phone-form"
+    //newPhoneDelBtn.innerText = "Delete"
     const formRegex = RegExp(`has_phones-(\\d){1}-`, 'g');
 
     formPhoneCount++;
 
     newPhoneForm.innerHTML = newPhoneForm.innerHTML.replace(formRegex, `has_phones-${formPhoneCount}-`);
     memberForm.insertBefore(newPhoneForm, addPhoneFormBtn);
-    newPhoneForm.appendChild(newPhoneDelBtn);
+    //newPhoneForm.appendChild(newPhoneDelBtn);
     totalPhoneForms.setAttribute('value', `${formPhoneCount + 1}`);
 });
 
@@ -109,16 +109,16 @@ addGeographyFormBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     const newGeographyForm = geographyForm[0].cloneNode(true);
-    const newGeographyDelBtn = document.createElement("button")
-    newGeographyDelBtn.className = "button btn-danger delete-geography-form"
-    newGeographyDelBtn.innerText = "Delete"
+    //const newGeographyDelBtn = document.createElement("button")
+    //newGeographyDelBtn.className = "button btn-danger delete-geography-form"
+    //newGeographyDelBtn.innerText = "Delete"
     const formRegex = RegExp(`has_geographies-(\\d){1}-`, 'g');
 
     formGeographyCount++;
 
     newGeographyForm.innerHTML = newGeographyForm.innerHTML.replace(formRegex, `has_geographies-${formGeographyCount}-`);
     memberForm.insertBefore(newGeographyForm, addGeographyFormBtn);
-    newGeographyForm.appendChild(newGeographyDelBtn);
+    //newGeographyForm.appendChild(newGeographyDelBtn);
     totalGeographyForms.setAttribute('value', `${formGeographyCount + 1}`);
 });
 
@@ -151,16 +151,16 @@ addSubjectFormBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     const newSubjectForm = subjectForm[0].cloneNode(true);
-    const newSubjectDelBtn = document.createElement("button")
-    newSubjectDelBtn.className = "button btn-danger delete-subject-form"
-    newSubjectDelBtn.innerText = "Delete"
+    //const newSubjectDelBtn = document.createElement("button")
+    //newSubjectDelBtn.className = "button btn-danger delete-subject-form"
+    //newSubjectDelBtn.innerText = "Delete"
     const formRegex = RegExp(`has_subjects-(\\d){1}-`, 'g');
 
     formSubjectCount++;
 
     newSubjectForm.innerHTML = newSubjectForm.innerHTML.replace(formRegex, `has_subjects-${formSubjectCount}-`);
     memberForm.insertBefore(newSubjectForm, addSubjectFormBtn);
-    newSubjectForm.appendChild(newSubjectDelBtn);
+    //newSubjectForm.appendChild(newSubjectDelBtn);
     totalSubjectForms.setAttribute('value', `${formSubjectCount + 1}`);
 });
 
@@ -193,16 +193,16 @@ addTaxonomyFormBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     const newTaxonomyForm = taxonomyForm[0].cloneNode(true);
-    const newTaxonomyDelBtn = document.createElement("button")
-    newTaxonomyDelBtn.className = "button btn-danger delete-taxonomy-form"
-    newTaxonomyDelBtn.innerText = "Delete"
+    //const newTaxonomyDelBtn = document.createElement("button")
+    //newTaxonomyDelBtn.className = "button btn-danger delete-taxonomy-form"
+    //newTaxonomyDelBtn.innerText = "Delete"
     const formRegex = RegExp(`has_taxons-(\\d){1}-`, 'g');
 
     formTaxonomyCount++;
 
     newTaxonomyForm.innerHTML = newTaxonomyForm.innerHTML.replace(formRegex, `has_taxons-${formTaxonomyCount}-`);
     memberForm.insertBefore(newTaxonomyForm, addTaxonomyFormBtn);
-    newTaxonomyForm.appendChild(newTaxonomyDelBtn);
+    //newTaxonomyForm.appendChild(newTaxonomyDelBtn);
     totalTaxonomyForms.setAttribute('value', `${formTaxonomyCount + 1}`);
 });
 
