@@ -117,14 +117,16 @@ class MemberSignupView(SignupView):
                               )
 
 
-class MemberList(generic.ListView):
+class MemberGallery(generic.ListView):
     model = Member
     paginate_by = 50
-    template_name = 'members/member_list.html'
+    template_name = 'members/member_gallery.html'
+    slug_url = 'slug'
+    slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
-        context = super(MemberList, self).get_context_data(**kwargs)
-        context['members'] = Member.objects.all()
+        context = super(MemberGallery, self).get_context_data(**kwargs)
+        context['members'] = Member.objects.all().order_by('last_name', 'first_name')
         
         return context
 

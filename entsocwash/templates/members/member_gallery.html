@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load static %}
+
+{% block title %}Membership Directory{% endblock %}
+
+{% block content %}
+
+    <h1 class="section-header dark-blue">Membership Gallery</h1>
+    <div class="text-block-container">
+
+        <section class="text-block">
+            <div class="subtext-block">
+
+                <div id="members" class="membership-directory">
+                    <!-- elements in flex column -->
+                    <div class="search-box">
+                        <input type="text" class="search" placeholder=" Search"/>
+                    </div>
+                    <ul class="list member-container">
+                    {% for member in members %}
+                        <li class="member-icon">
+                            <a href="{% url 'member-profile' member.slug %}">
+                                
+                                    {% if member.photo %}
+                                        <img class="member-img" src="{{ member.photo.url }}">
+                                    {% else %}
+                                        <img class="member-img" src="{% static 'images/blank-user.png' %}">
+                                    {% endif %}
+                                
+                            </a>
+                            <a class="name" href="{% url 'member-profile' member.slug %}">
+                                <span>{{ member }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <div class="pager">
+                        <div class="previous"><a><button class="green button">‹‹ Previous</button></a></div>
+                        <ul class="pagination"></ul>
+                        <div class="next"><a><button class="green button">Next ››</button></a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
