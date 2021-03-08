@@ -81,9 +81,9 @@
                             </p>
                             <p>
                                 <b>Taxonomy:</b>
-                                {% if member.has_taxonomies.all %}
+                                {% if member.has_taxons.all %}
                                     <ul>
-                                    {% for taxon in member.has_taxonomies.all %}
+                                    {% for taxon in member.has_taxons.all %}
                                         <li>{{ taxon }}</li>
                                     {% endfor %}
                                     </ul>
