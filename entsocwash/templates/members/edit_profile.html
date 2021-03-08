@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}Edit Profile{% endblock %}
 
@@ -72,6 +73,10 @@
                             <button id="add-phone-form" class="green button btn">Add Another Phone</button>
                             <br>
 
+                            <label>{{ profile_form.info_visible.label }}</label>
+                            {{ profile_form.info_visible }}
+                            <br>
+
                             <label>{{ profile_form.lsid.label }}</label>
                             {{ profile_form.lsid }}
 
@@ -80,13 +85,12 @@
 
                             <label>{{ profile_form.photo.label }}</label>
                             {{ profile_form.photo }}
+                            <span>Photo will be cropped into a 300x300 square</span>
+                            <br>
+                            <br>
 
                             <label>{{ profile_form.url.label }}</label>
                             {{ profile_form.url }}
-
-                            <label>{{ profile_form.info_visible.label }}</label>
-                            {{ profile_form.info_visible }}
-
                             <br>
 
                             {{ geography_inline_form.management_form }}
@@ -129,5 +133,7 @@
         </section>
 
     </div>
+
+    <script src="{% static 'js/formsets.js' %}"></script>
 
 {% endblock %}

@@ -17,7 +17,7 @@
                 <h2 class="text-block-header">{% trans "Sign Up" %}</h2>
             </div>
             <div class="subtext-block">
-                <div class="subtext-item">
+                <div class="signup-form">
                     <p>Please fill out the form below to create your account. Fields marked with an asterisk * are required.</p>
                     <p>Already have an account? Then please <a href="{% url 'account_login' %}">sign in</a></p>
                     <form id="main_form" method="post" action="{% url 'member-signup' %}" enctype="multipart/form-data">
@@ -86,6 +86,11 @@
                             <button id="add-phone-form" class="green button btn">Add Another Phone</button>
                             <br>
 
+                            <label>{{ member_signup_form.info_visible.label }}</label>
+                            {{ member_signup_form.info_visible }}
+
+                            <br>
+
                             <label>{{ member_signup_form.lsid.label }}</label>
                             {{ member_signup_form.lsid }}
 
@@ -94,14 +99,12 @@
 
                             <label>{{ member_signup_form.photo.label }}</label>
                             {{ member_signup_form.photo }}
+                            <span>Photo will be cropped into a 300x300 square</span>
+                            <br>
+                            <br>
 
                             <label>{{ member_signup_form.url.label }}</label>
                             {{ member_signup_form.url }}
-
-                            <label>{{ member_signup_form.info_visible.label }}</label>
-                            {{ member_signup_form.info_visible }}
-
-                            <br>
 
                             {{ geography_inline_form.management_form }}
                             {% for geography in geography_inline_form %}
@@ -152,5 +155,7 @@
         </section>
 
     </div>
+
+    <script src="{% static 'js/formsets.js' %}"></script>
 
 {% endblock %}
