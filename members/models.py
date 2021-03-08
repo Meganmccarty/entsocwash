@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import slugify
 
 from wagtail.admin.edit_handlers import InlinePanel
+
+from PIL import Image
 
 class Member(models.Model):
 
@@ -26,6 +29,7 @@ class Member(models.Model):
     url = models.URLField(null=True, blank=True)
     info_visible = models.BooleanField(default=False)
     notes = models.TextField(max_length=2000, null=True, blank=True)
+    slug = models.SlugField(default='', null=True, blank=True)
 
     InlinePanel('member_phone', label="Phone numbers")
 
@@ -39,7 +43,38 @@ class Member(models.Model):
         return self.user.email
 
     def save(self, *args, **kwargs):
-       super().save(*args, **kwargs)
+        slug = slugify(self.first_name + '-' + self.last_name)
+        self.slug = slug
+        super(Member, self).save()
+        if self.photo:
+            img = Image.open(self.photo.path)
+            width, height = img.size  # Get dimensions
+
+            if width > 300 and height > 300:
+                # keep ratio but shrink down
+                img.thumbnail((width, height))
+
+            # check which one is smaller
+            if height < width:
+                # make square by cutting off equal amounts left and right
+                left = (width - height) / 2
+                right = (width + height) / 2
+                top = 0
+                bottom = height
+                img = img.crop((left, top, right, bottom))
+
+            elif width < height:
+                # make square by cutting off bottom
+                left = 0
+                right = width
+                top = 0
+                bottom = width
+                img = img.crop((left, top, right, bottom))
+
+            if width > 300 and height > 300:
+                img.thumbnail((300, 300))
+
+            img.save(self.photo.path)
 
 def member_receiver(sender, instance, created, *args, **kwargs):
     if created:
