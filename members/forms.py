@@ -152,7 +152,7 @@ class MemberSignupForm(SignupForm):
         widget=forms.CheckboxInput(attrs={'class': '', 'id': 'boolean-checkbox'}),
         label='Make contact info public (leave unchecked to keep private)',
     )
-    
+
     class Meta:
         model = Member
         fields = [
@@ -199,6 +199,7 @@ class MemberSignupForm(SignupForm):
         user.member.orcid = self.cleaned_data['orcid']
         user.member.photo = self.cleaned_data['photo']
         user.member.url = self.cleaned_data['url']
+        user.member.info_visible = self.cleaned_data['info_visible']
         user.save()
         return user
 
